@@ -3,8 +3,9 @@
 
 	<type name = "Car" extends="TopologyObject">
 		  <property name="name" type="String" is-identity="true"/>
-		  <property name="number" type="Double" />
-		  <property name="speed" type="Metric" unit-name="count"/>
+		  <property name="brand" type="String" is-identity="true"/>
+		  <property name="price" type="Double" />
+		  <property name="salesVolume" type="Metric" unit-name="count"/>
 	</type>
 	
 	<type name = "DemoUser" extends="TopologyObject">
