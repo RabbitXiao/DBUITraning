@@ -1,0 +1,46 @@
+<project name="Sample Cartridge" default="all">
+    <taskdef name="car" classname="com.quest.nitro.tools.ant.cartridge.Car">
+        <classpath id="car.task.classpath">
+            <pathelement location="libs/foglight-ant.jar"/>
+            <pathelement location="libs/jibx-run.jar"/>
+            <pathelement location="libs/xpp3.jar"/>
+			<pathelement location="libs/quest-common.jar"/>
+			<pathelement location="libs/commons-lang.jar"/>
+        </classpath>
+    </taskdef>
+ 
+    <target name="all">
+ 
+        <car destdir="." buildLocalizableCar="false">
+            <cartridge name="TrainingCartridge" type="" version="1.0.0" buildId="1">
+				<topologytypes name="Topology-Types" version="1.0.0" file="config/topology.xml"/>
+                <wcf name="DemoModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo/**"/>
+                    </fileset>
+                </wcf>
+				<wcf name="BasicComponentsModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_basic_components/**"/>
+                    </fileset>
+                </wcf>
+				<wcf name="BasicTrainingModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_basic_components_training/**"/>
+                    </fileset>
+                </wcf>
+				<wcf name="BeanInputModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_bean_input/**"/>
+                    </fileset>
+                </wcf>
+				<wcf name="BeanInputTraininggModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_bean_input_training/**"/>
+                    </fileset>
+                </wcf>
+            </cartridge>
+        </car>
+ 
+    </target>
+</project>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Training" last-entity-id="3" parent="system:demo_basic_components">
+    <view id="cartable" display-name="[Table] Car Table" ts="1467254935151" public="false" component="wcf.table.row-table">
+        <uuid>a2d0f3ff-149a-404e-afed-65d08c8fd7c3</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="seletedRows" data-type="foglight-5:Car" list="true" usage="optional" implicit="true"/>
+        </inputs>
+        <context>
+            <entry key="cars">
+                <function-rv id="system:demo_basic_components.1"/>
+            </entry>
+        </context>
+        <flow>
+            <on action="cellSelection">
+                <generated-context output-key="selectedColumnId" custom-key="selColumnID"/>
+                <generated-context output-key="selectedRow" custom-key="selRow"/>
+                <choose-value key="selColumnID">
+                    <case value="c_edit">
+                        <popup id="system:demo_basic_components.5">
+                            <context>
+                                <entry key="action">
+                                    <string xml:space="preserve">edit</string>
+                                </entry>
+                                <entry key="name">
+                                    <context-rv input-key="selRow" path="name"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <case value="c_3">
+                        <popup id="system:demo_basic_components_training.3" type="temporary">
+                            <context>
+                                <entry key="speed">
+                                    <context-rv input-key="selRow" path="speed"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <default>
+                        <nop/>
+                    </default>
+                </choose-value>
+            </on>
+            <on action="rowsSelection">
+                <generated-context output-key="selectedRows" custom-key="seletedRows"/>
+                <update/>
+            </on>
+            <on action="dwell">
+                <generated-context output-key="selectedRow" custom-key="selRow"/>
+                <generated-context output-key="selectedColumnId" custom-key="selColumnID"/>
+                <popup id="system:demo_basic_components.9">
+                    <context>
+                        <entry key="text">
+                            <context-rv input-key="selRow" path="name"/>
+                        </entry>
+                    </context>
+                </popup>
+            </on>
+        </flow>
+        <config>
+            <property name="rows">
+                <context-rv input-key="cars"/>
+            </property>
+            <property name="columns">
+                <list-value>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="name" renderer-id="system:demo.textrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_0</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_basic_components_training.plain.1"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <icon-rv id="system:system.103"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_edit</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_basic_components_training.plain.2"/>
+                        </property>
+                        <property name="cellAlignment">
+                            <object>
+                                <property name="horizontal">
+                                    <enum value="center"/>
+                                </property>
+                            </object>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="number" renderer-id="system:demo_basic_components_training.1"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_2</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="speed" renderer-id="system:demo_basic_components_training.2"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_3</string>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="actionGroups">
+                <list-value>
+                    <object>
+                        <property name="actions">
+                            <list-value>
+                                <object>
+                                    <property name="icon">
+                                        <icon-rv id="system:system.40"/>
+                                    </property>
+                                    <property name="label">
+                                        <i18n-rv key="system:demo_basic_components_training.plain.3"/>
+                                    </property>
+                                    <property name="reaction">
+                                        <popup id="system:demo_basic_components.5" type="modal">
+                                            <context>
+                                                <entry key="action">
+                                                    <string xml:space="preserve">add</string>
+                                                </entry>
+                                            </context>
+                                        </popup>
+                                    </property>
+                                </object>
+                            </list-value>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="selectionActions">
+                <list-value>
+                    <object>
+                        <property name="icon">
+                            <icon-rv id="system:system.76"/>
+                        </property>
+                        <property name="label">
+                            <i18n-rv key="system:demo_basic_components_training.plain.4"/>
+                        </property>
+                        <property name="reaction">
+                            <update>
+                                <context>
+                                    <entry key="statusMessages">
+                                        <function-rv id="system:demo_basic_components.8">
+                                            <context-rv input-key="seletedRows"/>
+                                        </function-rv>
+                                    </entry>
+                                </context>
+                            </update>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <view id="3" display-name="Chart" ts="1467254779403" public="false" component="wcf.chart.time-plot">
+        <uuid>1e20c45e-01b1-403e-b5b8-0407f65bcfac</uuid>
+        <purpose name="dialog"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="speed" data-type="foglight-5:Metric"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="simpleMetricData">
+                <object>
+                    <property name="metricBindings">
+                        <list-value>
+                            <object>
+                                <property name="metric">
+                                    <context-rv input-key="speed"/>
+                                </property>
+                            </object>
+                        </list-value>
+                    </property>
+                </object>
+            </property>
+        </config>
+    </view>
+    <renderer id="1" display-name="Number Renderer" ts="1467253396084" public="false" handler="wcf.number-bar" value-type="wcf:Number">
+        <uuid>d423bb81-b246-402b-b4da-ca71cb7cbc70</uuid>
+        <config/>
+    </renderer>
+    <renderer id="2" display-name="Metric Renderer" ts="1467253822097" public="false" handler="wcf.time-plot" value-type="wcf:Metric">
+        <uuid>7df19126-bf23-4987-9154-73261c25e997</uuid>
+        <config>
+            <property name="height">
+                <integer value="16"/>
+            </property>
+            <property name="timePlot">
+                <object>
+                    <property name="lineThickness">
+                        <enum value="small"/>
+                    </property>
+                </object>
+            </property>
+        </config>
+    </renderer>
+</module>

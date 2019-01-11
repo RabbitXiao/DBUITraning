@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types xmlns="urn:quest-com:wcf-types-3-0">
+    <type name="Car" extends="wcf:WritableDataObject">
+        <set annotation="reloadable">false</set>
+        <property name="name" type="wcf:String"/>
+        <property name="number" type="wcf:Double"/>
+        <property name="id" type="wcf:String"/>
+    </type>
+</types>

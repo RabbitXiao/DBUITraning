@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Demo" last-entity-id="2">
+    <view id="2" display-name="Demo" ts="1467358396311" public="false" component="wcf.tab-manager">
+        <uuid>0d574a49-20da-4fe7-b120-5d2cf8046a1c</uuid>
+        <purpose name="homepage"/>
+        <purpose name="page"/>
+        <relevant-role name="Advanced Operator"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="tabs">
+                <list-value>
+                    <association-ref value="system:demo_basic_components.12"/>
+                    <association-ref value="system:demo_basic_components.14"/>
+                    <association-ref value="system:demo_basic_components.tabcontextinputs"/>
+                    <association-ref value="system:demo_bean_input.8"/>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <renderer id="textrenderer" display-name="Text Renderer" ts="1467343948361" public="false" handler="wcf.text" value-type="wcf:String">
+        <uuid>5a0dbea1-8737-49f5-8706-48a8d29a8b99</uuid>
+        <config>
+            <property name="max-chars">
+                <integer value="20"/>
+            </property>
+            <property name="ellipsis-position">
+                <enum value="center"/>
+            </property>
+        </config>
+    </renderer>
+    <renderer id="metricrenderer" display-name="Metric Renderer" ts="1467343969761" public="false" handler="wcf.time-plot" value-type="wcf:Metric">
+        <uuid>b95cfc16-21e8-4fa7-a211-0e28aa94a906</uuid>
+        <config>
+            <property name="height">
+                <integer value="16"/>
+            </property>
+            <property name="timePlot">
+                <object>
+                    <property name="nullRenderer">
+                        <null-renderer value="system:demo.nullrendererer"/>
+                    </property>
+                    <property name="lineThickness">
+                        <enum value="small"/>
+                    </property>
+                </object>
+            </property>
+        </config>
+    </renderer>
+    <renderer id="nullrendererer" display-name="Null Renderer" ts="1467343977539" public="false" handler="wcf.null-string">
+        <uuid>090f6032-43af-4131-b736-82a12a7cd2ba</uuid>
+        <config>
+            <property name="message">
+                <string-rv>
+                    <value xml:space="preserve"></value>
+                </string-rv>
+            </property>
+        </config>
+    </renderer>
+    <renderer id="numberrenderer" display-name="Number Renderer" ts="1467343987880" public="false" handler="wcf.number-bar" value-type="wcf:Number">
+        <uuid>c0d646f5-0913-406d-ad57-07a2de9f9498</uuid>
+        <config/>
+    </renderer>
+    <map-function id="car" display-name="Car" ts="1467277608549" public="false" output-type="wcf:String" cache-results="true" input-type="wcf:String">
+        <uuid>713e49ed-7714-4b76-a668-0b58bcb70ae4</uuid>
+        <map-entry>
+            <key>
+                <string-rv>
+                    <value xml:space="preserve">QQ</value>
+                </string-rv>
+            </key>
+            <value>
+                <i18n-rv key="system:demo.plain.2"/>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key>
+                <string-rv>
+                    <value xml:space="preserve">Audi</value>
+                </string-rv>
+            </key>
+            <value>
+                <i18n-rv key="system:demo.plain.3"/>
+            </value>
+        </map-entry>
+    </map-function>
+</module>

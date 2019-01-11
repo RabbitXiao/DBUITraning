@@ -1,0 +1,12 @@
+#ignore .swp files
+*.car
+*.swp
+*.swo
+*.iml
+*.ipr
+*.iws
+classes
+target
+build
+.idea
+*.class

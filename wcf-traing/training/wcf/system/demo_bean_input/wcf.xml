@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Bean_Input" last-entity-id="8" parent="system:demo">
+    <view id="2" display-name="Car Summary" ts="1467356258363" public="false" component="wcf.table.row-table.bean">
+        <uuid>fd79f3fa-c357-46c0-90c8-bff8ce382fec</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="cars" data-type="demo:Car" list="true" usage="internal">
+                <function-rv id="system:demo_bean_input.1"/>
+            </entry>
+        </inputs>
+        <flow>
+            <on action="cellSelection">
+                <generated-context output-key="selectedColumnId" custom-key="selectedColumnID"/>
+                <generated-context output-key="cellValue" custom-key="cellValue"/>
+                <generated-context output-key="selectedRow" custom-key="selectedRow"/>
+                <choose-value key="selectedColumnID">
+                    <case value="c_3">
+                        <popup id="system:demo_bean_input.6">
+                            <context>
+                                <entry key="car">
+                                    <context-rv input-key="selectedRow"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <default>
+                        <nop/>
+                    </default>
+                </choose-value>
+            </on>
+        </flow>
+        <config>
+            <property name="beanInputConfiguration">
+                <object>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">id</string>
+                    </property>
+                </object>
+            </property>
+            <property name="rows">
+                <context-rv input-key="cars"/>
+            </property>
+            <property name="columns">
+                <list-value>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="name" renderer-id="system:demo.textrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_0</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_bean_input.plain.1"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="number" renderer-id="system:demo.numberrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_1</string>
+                        </property>
+                        <property name="header">
+                            <string xml:space="preserve">Number</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="topologyObject/speed" renderer-id="system:demo.metricrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_2</string>
+                        </property>
+                        <property name="header">
+                            <string xml:space="preserve">Speed</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <icon-rv id="system:system.103"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_3</string>
+                        </property>
+                        <property name="header">
+                            <string xml:space="preserve">Edit</string>
+                        </property>
+                        <property name="cellAlignment">
+                            <object>
+                                <property name="horizontal">
+                                    <enum value="center"/>
+                                </property>
+                            </object>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <composite-view id="3" display-name="Edit Car Layout" ts="1467356612377" public="false" component="wcf.row-layout">
+        <uuid>97ae4994-1bc8-47a8-ac5a-f7d20eac66d1</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="car" data-type="demo:Car"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_basic_components.9">
+            <size width="100" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Name</string>
+                </entry>
+            </context>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_bean_input.4">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.9">
+            <size width="100" height="20"/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_bean_input.plain.4"/>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_bean_input.5">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <view id="4" display-name="Car Name Text Field" ts="1467356508167" public="false" component="wcf.bean-input.text">
+        <uuid>6c9ab05e-d6b2-4b49-98bb-c59da76bbdeb</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="car" data-type="demo:Car"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="fieldWidth">
+                <integer value="15"/>
+            </property>
+            <property name="pathToValue">
+                <string xml:space="preserve">name</string>
+            </property>
+        </config>
+    </view>
+    <view id="5" display-name="Car Number Number Input" ts="1467356495385" public="false" component="wcf.bean-input.number">
+        <uuid>d4c9a38d-9c98-4a38-af72-e79ff432b7b0</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="car" data-type="demo:Car"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="minValue">
+                <double value="1.0"/>
+            </property>
+            <property name="precision">
+                <integer value="2"/>
+            </property>
+            <property name="fieldWidth">
+                <integer value="15"/>
+            </property>
+            <property name="pathToValue">
+                <string xml:space="preserve">number</string>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="40"/>
+                    <height/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <view id="6" display-name="Edit Car Dialog" ts="1467358845290" public="false" component="wcf.form">
+        <uuid>3d8a5949-13fe-4cf5-87a2-cd717c7e2756</uuid>
+        <purpose name="dialog"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="car" data-type="demo:Car"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="view">
+                <view-ref value="system:demo_bean_input.3"/>
+            </property>
+            <property name="actions">
+                <list-value>
+                    <object>
+                        <property name="text">
+                            <string xml:space="preserve">Save</string>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context">
+                                <context>
+                                    <entry key="statusMgs">
+                                        <function-rv id="system:demo_bean_input.7">
+                                            <context-rv input-key="car"/>
+                                        </function-rv>
+                                    </entry>
+                                    <entry key="isNull">
+                                        <function-rv id="system:core_commons.IsNullList">
+                                            <context-rv input-key="statusMgs"/>
+                                        </function-rv>
+                                    </entry>
+                                </context>
+                            </previous>
+                        </property>
+                        <property name="validate">
+                            <function-rv id="system:demo_bean_input.7">
+                                <context-rv input-key="car"/>
+                            </function-rv>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <association usage="tab" id="8" display-name="[Tab] Bean Input" ts="1467358338117" public="false">
+        <uuid>0b61650e-373a-4f14-ad12-48daafa05cdc</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="label">
+                <string xml:space="preserve">Bean Inputs</string>
+            </property>
+            <property name="view">
+                <view-ref value="system:demo_bean_input.2"/>
+            </property>
+        </config>
+    </association>
+    <script-function type="groovy" id="1" display-name="allCars" ts="1467604022403" public="false" output-type="demo:Car" output-list="true" cache-results="true">
+        <uuid>03f9387e-04fc-47de-a7dd-f476047a3b67</uuid>
+    </script-function>
+    <script-function type="groovy" id="7" display-name="editCar" ts="1467603194701" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>6dc1e362-4f5d-45ae-8a55-60e132fdd6b2</uuid>
+        <inputs>
+            <input name="car" type-name="demo:Car"/>
+        </inputs>
+    </script-function>
+</module>

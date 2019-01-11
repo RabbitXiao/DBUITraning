@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types>
+
+	<type name = "Car" extends="TopologyObject">
+		  <property name="name" type="String" is-identity="true"/>
+		  <property name="number" type="Double" />
+		  <property name="speed" type="Metric" unit-name="count"/>
+	</type>
+	
+</types>

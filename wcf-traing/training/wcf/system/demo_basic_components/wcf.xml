@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Basic Components" last-entity-id="18" parent="system:demo">
+    <view id="2" display-name="[table] Cars Summary Table" ts="1467598951311" public="false" component="wcf.table.row-table">
+        <uuid>ba0282e5-393e-4a89-9c7d-f82c9e2fdf3f</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedRows" data-type="foglight-5:Car" list="true" usage="optional" implicit="true"/>
+        </inputs>
+        <flow>
+            <on action="cellSelection">
+                <generated-context output-key="selectedRow" custom-key="selRow"/>
+                <generated-context output-key="selectedColumnId" custom-key="selRowId"/>
+                <choose-value key="selRowId">
+                    <case value="c_3">
+                        <popup id="system:demo_basic_components.5">
+                            <context>
+                                <entry key="action">
+                                    <string xml:space="preserve">edit</string>
+                                </entry>
+                                <entry key="name">
+                                    <context-rv input-key="selRow" path="name"/>
+                                </entry>
+                                <entry key="number">
+                                    <context-rv input-key="selRow" path="number"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <case value="c_2">
+                        <popup id="system:demo_basic_components.17" type="temporary">
+                            <context>
+                                <entry key="car">
+                                    <context-rv input-key="selRow"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <default>
+                        <nop/>
+                    </default>
+                </choose-value>
+            </on>
+            <on action="rowsSelection">
+                <generated-context output-key="selectedRows" custom-key="selectedRows"/>
+                <nop/>
+            </on>
+            <on action="dwell">
+                <generated-context output-key="selectedRow" custom-key="selRow"/>
+                <generated-context output-key="selectedColumnId" custom-key="selRowId"/>
+                <choose-value key="selRowId">
+                    <case value="c_0">
+                        <popup id="system:demo_basic_components.9" type="temporary">
+                            <context>
+                                <entry key="text">
+                                    <context-rv input-key="selRow" path="name"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <default>
+                        <nop/>
+                    </default>
+                </choose-value>
+            </on>
+        </flow>
+        <config>
+            <property name="rows">
+                <function-rv id="system:demo_basic_components.1"/>
+            </property>
+            <property name="columns">
+                <list-value>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="name" renderer-id="system:demo.textrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">name</string>
+                        </property>
+                        <property name="header">
+                            <string xml:space="preserve">Car Name</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="number" renderer-id="system:demo.numberrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_1</string>
+                        </property>
+                        <property name="header">
+                            <string xml:space="preserve">Number</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="speed" renderer-id="system:demo.metricrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_2</string>
+                        </property>
+                        <property name="header">
+                            <string xml:space="preserve">Speed</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <icon-rv id="system:system.103"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_3</string>
+                        </property>
+                        <property name="cellAlignment">
+                            <object>
+                                <property name="horizontal">
+                                    <enum value="center"/>
+                                </property>
+                            </object>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="selectionConfiguration">
+                <object>
+                    <property name="autoSelectPolicy">
+                        <enum value="none"/>
+                    </property>
+                </object>
+            </property>
+            <property name="actionGroups">
+                <list-value>
+                    <object>
+                        <property name="actions">
+                            <list-value>
+                                <object>
+                                    <property name="icon">
+                                        <icon-ref value="system:administration.128"/>
+                                    </property>
+                                    <property name="label">
+                                        <string xml:space="preserve">Add</string>
+                                    </property>
+                                    <property name="reaction">
+                                        <popup id="system:demo_basic_components.5">
+                                            <context>
+                                                <entry key="action">
+                                                    <string xml:space="preserve">add</string>
+                                                </entry>
+                                            </context>
+                                        </popup>
+                                    </property>
+                                </object>
+                            </list-value>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="selectionActions">
+                <list-value>
+                    <object>
+                        <property name="icon">
+                            <icon-ref value="system:system.76"/>
+                        </property>
+                        <property name="label">
+                            <string xml:space="preserve">Remve</string>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context">
+                                <context>
+                                    <entry key="statusmsg">
+                                        <function-rv id="system:demo_basic_components.8">
+                                            <context-rv input-key="selectedRows"/>
+                                        </function-rv>
+                                    </entry>
+                                </context>
+                            </previous>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <composite-view id="4" display-name="[Layout] Add or Edit Car" ts="1467598817287" public="false" component="wcf.row-layout">
+        <uuid>08cf2d6a-42e9-4dff-88eb-fd4a5cc3b035</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="name" data-type="wcf:String"/>
+            <entry key="number" data-type="wcf:Double"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="nested">
+            <size/>
+            <config/>
+            <view id="nested" display-name="(Nested View 1)" ts="1467014826997" public="false" component="wcf.label">
+                <flow/>
+                <config>
+                    <property name="label">
+                        <string xml:space="preserve">Name</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="2" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="name" ts="1467018714775" public="false" component="wcf.input.text">
+                <inputs>
+                    <entry key="timeRange" data-type="wcf:TimeRange"/>
+                    <entry key="name" data-type="wcf:String" usage="optional" implicit="true"/>
+                </inputs>
+                <generated-context output-key="value" custom-key="name"/>
+                <flow>
+                    <on action="update">
+                        <update/>
+                    </on>
+                </flow>
+                <config/>
+            </view>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Number</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="Car Number" ts="1467598817250" public="false" component="wcf.input.number">
+                <inputs>
+                    <entry key="number" data-type="wcf:Number" usage="optional" implicit="true"/>
+                </inputs>
+                <generated-context output-key="value" custom-key="number"/>
+                <flow>
+                    <on action="update">
+                        <update/>
+                    </on>
+                </flow>
+                <config/>
+            </view>
+        </window>
+    </composite-view>
+    <view id="5" display-name="[Dialog] Add or Edit Car" ts="1467598973745" public="false" component="wcf.form">
+        <uuid>d996df23-2a5f-4cc8-9b18-5fa94dc34192</uuid>
+        <purpose name="dialog"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="name" data-type="wcf:String" usage="optional">
+                <null-rv/>
+            </entry>
+            <entry key="action" data-type="wcf:String"/>
+            <entry key="oldName" data-type="wcf:String" usage="internal">
+                <context-rv input-key="name"/>
+            </entry>
+            <entry key="number" data-type="wcf:Double"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="view">
+                <view-ref value="system:demo_basic_components.4"/>
+            </property>
+            <property name="actions">
+                <list-value>
+                    <object>
+                        <property name="text">
+                            <context-rv input-key="action"/>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context"/>
+                        </property>
+                        <property name="validate">
+                            <function-rv id="system:demo_basic_components.6">
+                                <context-rv input-key="name"/>
+                                <context-rv input-key="action"/>
+                                <context-rv input-key="oldName"/>
+                                <context-rv input-key="number"/>
+                            </function-rv>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="title">
+                <string-rv>
+                    <value xml:space="preserve">{0} Car</value>
+                    <context-rv input-key="action"/>
+                </string-rv>
+            </property>
+        </config>
+    </view>
+    <view id="9" display-name="[Label] Label" ts="1467077912412" public="false" component="wcf.label">
+        <uuid>f6eb998e-8761-4d7a-ba5b-65b2b90f37f8</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="text" data-type="wcf:String"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="label">
+                <context-rv input-key="text"/>
+            </property>
+        </config>
+    </view>
+    <composite-view id="10" display-name="[Layout] Columns Layout" ts="1467255695387" public="false" component="wcf.column-layout">
+        <uuid>8dbba538-8ec7-425e-9c60-f567a7eeb32d</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_basic_components.plain.12"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">A</string>
+                </entry>
+            </context>
+            <config>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">B</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="6" view="system:demo_basic_components.18">
+            <size width="200" height="20"/>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">C</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">D</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">E</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">F</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="11" display-name="[Layout] Rows Layout" ts="1467085903855" public="false" component="wcf.row-layout">
+        <uuid>e774158b-51e2-464f-a5f7-c666f3262bf2</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="allowCollapse">
+                <boolean value="true"/>
+            </property>
+            <property name="title">
+                <i18n-rv key="system:demo_basic_components.plain.13"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">A</string>
+                </entry>
+            </context>
+            <config>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">B</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">C</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">D</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">E</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">F</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="13" display-name="[Layout] Layout Container" ts="1467107609808" public="false" component="wcf.grid2">
+        <uuid>c8e1d68c-3943-43b6-ab5a-fe4df5a5ba95</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_basic_components.10">
+            <size/>
+            <config>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components.11">
+            <size/>
+            <config>
+                <property name="collapsed">
+                    <boolean value="true"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.16">
+            <size/>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="16" display-name="[Layout] Grid Layout" ts="1467256366597" public="false" component="wcf.grid2">
+        <uuid>fb666097-2aed-4c24-a82d-892c035ca286</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_basic_components.plain.15"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_basic_components.9">
+            <size width="405" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">A</string>
+                </entry>
+            </context>
+            <config>
+                <property name="colspan">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_basic_components.9">
+            <size width="200" height="70"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">F</string>
+                </entry>
+            </context>
+            <config>
+                <property name="rowspan">
+                    <integer value="3"/>
+                </property>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components.9">
+            <size width="200" height="45"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">B</string>
+                </entry>
+            </context>
+            <config>
+                <property name="rowspan">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">C</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">D</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_basic_components.9" scrollbars="auto">
+            <size width="610" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">E</string>
+                </entry>
+            </context>
+            <config>
+                <property name="colspan">
+                    <integer value="3"/>
+                </property>
+                <property name="row">
+                    <integer value="3"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="6" view="system:demo_basic_components.9">
+            <size width="600" height="60"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">G</string>
+                </entry>
+            </context>
+            <config>
+                <property name="colspan">
+                    <integer value="3"/>
+                </property>
+                <property name="rowspan">
+                    <integer value="3"/>
+                </property>
+                <property name="row">
+                    <integer value="4"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="7" view="system:demo_basic_components.18">
+            <size width="200" height="20"/>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="7"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <view id="17" display-name="[Chart] Speed Chart" ts="1467343809082" public="false" component="wcf.chart.time-plot">
+        <uuid>21be201c-e371-43bb-b6aa-012f8b30b71b</uuid>
+        <purpose name="dialog"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="car" data-type="foglight-5:Car"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="simpleMetricData">
+                <object>
+                    <property name="metricBindings">
+                        <list-value>
+                            <object>
+                                <property name="metric">
+                                    <context-rv input-key="car" path="speed"/>
+                                </property>
+                            </object>
+                        </list-value>
+                    </property>
+                </object>
+            </property>
+            <property name="legend">
+                <object>
+                    <property name="visible">
+                        <boolean value="false"/>
+                    </property>
+                </object>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="250"/>
+                    <height preferred="150"/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <view id="18" display-name="[Button] Button" ts="1467256236085" public="false" component="wcf.input.button">
+        <uuid>1213012c-51a2-48cf-8c8b-8c44695d2fe1</uuid>
+        <flow/>
+        <config>
+            <property name="label">
+                <string xml:space="preserve">OK</string>
+            </property>
+        </config>
+    </view>
+    <association usage="tab" id="12" display-name="[Tab] Table" ts="1467084820582" public="false">
+        <uuid>71f9f882-aaae-4a24-b327-d71941048394</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="label">
+                <i18n-rv key="system:demo_basic_components.plain.9"/>
+            </property>
+            <property name="view">
+                <view-ref value="system:demo_basic_components.2"/>
+            </property>
+        </config>
+    </association>
+    <association usage="tab" id="14" display-name="[Tab] Layout" ts="1467084667329" public="false">
+        <uuid>427c4b6c-2b96-402b-b598-9eed9c60d2b5</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="label">
+                <i18n-rv key="system:demo_basic_components.plain.10"/>
+            </property>
+            <property name="view">
+                <view-ref value="system:demo_basic_components.13"/>
+            </property>
+        </config>
+    </association>
+    <association usage="tab" id="tabcontextinputs" display-name="[Tab] Context Inputs" ts="1467180619278" public="false">
+        <uuid>b9d9e432-759c-41fc-b644-24c04b6381c4</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="label">
+                <i18n-rv key="system:demo_basic_components.plain.17"/>
+            </property>
+            <property name="view">
+                <view-ref value="system:demo_context_input.layoutcontetinput"/>
+            </property>
+        </config>
+    </association>
+    <script-function type="groovy" id="1" display-name="getAllCars" ts="1467270404302" public="false" output-type="foglight-5:Car" output-list="true" cache-results="true">
+        <uuid>5df94520-6956-4c72-9d27-f429e17c58b0</uuid>
+    </script-function>
+    <script-function type="groovy" id="6" display-name="Add or Edit Car" ts="1467598936604" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>c8a5e1e2-c1f8-4666-9e7e-6d59bd214746</uuid>
+        <inputs>
+            <input name="name" type-name="wcf:String"/>
+            <input name="action" type-name="wcf:String"/>
+            <input name="oldName" type-name="wcf:String"/>
+            <input name="number" type-name="wcf:Double"/>
+        </inputs>
+    </script-function>
+    <script-function type="groovy" id="8" display-name="Remove Cars" ts="1467021037003" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>61faf46f-b034-47aa-85ea-4161a7f63f0c</uuid>
+        <inputs>
+            <input name="delCars" type-name="foglight-5:Car" list="true"/>
+        </inputs>
+    </script-function>
+</module>
