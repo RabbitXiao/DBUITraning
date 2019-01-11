@@ -1,5 +1,6 @@
 #ignore .swp files
 *.car
+*.zip
 *.swp
 *.swo
 *.iml
