@@ -1,7 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Basic Components" last-entity-id="18" parent="system:demo">
-    <view id="2" display-name="[table] Cars Summary Table" ts="1467598951311" public="false" component="wcf.table.row-table">
-        <uuid>ba0282e5-393e-4a89-9c7d-f82c9e2fdf3f</uuid>
+    <composite-view id="4" display-name="[Layout] Add or Edit Car" ts="1547192301736" public="false" component="wcf.row-layout">
+        <uuid>08cf2d6a-42e9-4dff-88eb-fd4a5cc3b035</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="name" data-type="wcf:String"/>
+            <entry key="number" data-type="wcf:Double"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="nested">
+            <size width="80"/>
+            <config/>
+            <view id="nested" display-name="(Nested View 1)" ts="1467014826997" public="false" component="wcf.label">
+                <flow/>
+                <config>
+                    <property name="label">
+                        <string xml:space="preserve">Name</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="2" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="name" ts="1467018714775" public="false" component="wcf.input.text">
+                <inputs>
+                    <entry key="timeRange" data-type="wcf:TimeRange"/>
+                    <entry key="name" data-type="wcf:String" usage="optional" implicit="true"/>
+                </inputs>
+                <generated-context output-key="value" custom-key="name"/>
+                <flow>
+                    <on action="update">
+                        <update/>
+                    </on>
+                </flow>
+                <config/>
+            </view>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="80" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Number</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="Car Number" ts="1467598817250" public="false" component="wcf.input.number">
+                <inputs>
+                    <entry key="number" data-type="wcf:Number" usage="optional" implicit="true"/>
+                </inputs>
+                <generated-context output-key="value" custom-key="number"/>
+                <flow>
+                    <on action="update">
+                        <update/>
+                    </on>
+                </flow>
+                <config/>
+            </view>
+        </window>
+    </composite-view>
+    <view id="5" display-name="[Dialog] Add or Edit Car" ts="1547193257763" public="false" component="wcf.form">
+        <uuid>d996df23-2a5f-4cc8-9b18-5fa94dc34192</uuid>
+        <purpose name="dialog"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="name" data-type="wcf:String" usage="optional">
+                <null-rv/>
+            </entry>
+            <entry key="action" data-type="wcf:String"/>
+            <entry key="oldName" data-type="wcf:String" usage="internal">
+                <context-rv input-key="name"/>
+            </entry>
+            <entry key="number" data-type="wcf:Double"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="view">
+                <view-ref value="system:demo_basic_components.4"/>
+            </property>
+            <property name="actions">
+                <list-value>
+                    <object>
+                        <property name="text">
+                            <context-rv input-key="action"/>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context"/>
+                        </property>
+                        <property name="validate">
+                            <function-rv id="system:demo_basic_components.addOrEditCar">
+                                <context-rv input-key="name"/>
+                                <context-rv input-key="action"/>
+                                <context-rv input-key="oldName"/>
+                                <context-rv input-key="number"/>
+                            </function-rv>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="title">
+                <string-rv>
+                    <value xml:space="preserve">{0} Car</value>
+                    <context-rv input-key="action"/>
+                </string-rv>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="200"/>
+                    <height preferred="100"/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <view id="9" display-name="[Label] Label" ts="1547193103714" public="false" component="wcf.label">
+        <uuid>f6eb998e-8761-4d7a-ba5b-65b2b90f37f8</uuid>
+        <purpose name="dialog"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="text" data-type="wcf:String"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="label">
+                <context-rv input-key="text"/>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width/>
+                    <height/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <view id="17" display-name="[Chart] Speed Chart" ts="1467343809082" public="false" component="wcf.chart.time-plot">
+        <uuid>21be201c-e371-43bb-b6aa-012f8b30b71b</uuid>
+        <purpose name="dialog"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="car" data-type="foglight-5:Car"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="simpleMetricData">
+                <object>
+                    <property name="metricBindings">
+                        <list-value>
+                            <object>
+                                <property name="metric">
+                                    <context-rv input-key="car" path="speed"/>
+                                </property>
+                            </object>
+                        </list-value>
+                    </property>
+                </object>
+            </property>
+            <property name="legend">
+                <object>
+                    <property name="visible">
+                        <boolean value="false"/>
+                    </property>
+                </object>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="250"/>
+                    <height preferred="150"/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <view id="18" display-name="[Button] Button" ts="1467256236085" public="false" component="wcf.input.button">
+        <uuid>1213012c-51a2-48cf-8c8b-8c44695d2fe1</uuid>
+        <flow/>
+        <config>
+            <property name="label">
+                <string xml:space="preserve">OK</string>
+            </property>
+        </config>
+    </view>
+    <view id="carsSummaryTable" display-name="[table] Cars Summary Table" ts="1547193192070" public="false" component="wcf.table.row-table">
+        <uuid>f1087cf6-277c-40e7-a826-7d6328374bba</uuid>
         <purpose name="pagelet"/>
         <inputs>
             <entry key="timeRange" data-type="wcf:TimeRange"/>
@@ -12,7 +212,7 @@
                 <generated-context output-key="selectedRow" custom-key="selRow"/>
                 <generated-context output-key="selectedColumnId" custom-key="selRowId"/>
                 <choose-value key="selRowId">
-                    <case value="c_3">
+                    <case value="c_edit">
                         <popup id="system:demo_basic_components.5">
                             <context>
                                 <entry key="action">
@@ -27,7 +227,7 @@
                             </context>
                         </popup>
                     </case>
-                    <case value="c_2">
+                    <case value="c_speed">
                         <popup id="system:demo_basic_components.17" type="temporary">
                             <context>
                                 <entry key="car">
@@ -49,11 +249,13 @@
                 <generated-context output-key="selectedRow" custom-key="selRow"/>
                 <generated-context output-key="selectedColumnId" custom-key="selRowId"/>
                 <choose-value key="selRowId">
-                    <case value="c_0">
+                    <case value="c_name">
                         <popup id="system:demo_basic_components.9" type="temporary">
                             <context>
                                 <entry key="text">
-                                    <context-rv input-key="selRow" path="name"/>
+                                    <i18n-rv key="system:demo_basic_components.plain.16">
+                                        <context-rv input-key="selRow" path="name"/>
+                                    </i18n-rv>
                                 </entry>
                             </context>
                         </popup>
@@ -75,7 +277,7 @@
                             <context-rv input-key="currentRow" path="name" renderer-id="system:demo.textrenderer"/>
                         </property>
                         <property name="id">
-                            <string xml:space="preserve">name</string>
+                            <string xml:space="preserve">c_name</string>
                         </property>
                         <property name="header">
                             <string xml:space="preserve">Car Name</string>
@@ -86,7 +288,7 @@
                             <context-rv input-key="currentRow" path="number" renderer-id="system:demo.numberrenderer"/>
                         </property>
                         <property name="id">
-                            <string xml:space="preserve">c_1</string>
+                            <string xml:space="preserve">c_number</string>
                         </property>
                         <property name="header">
                             <string xml:space="preserve">Number</string>
@@ -97,7 +299,7 @@
                             <context-rv input-key="currentRow" path="speed" renderer-id="system:demo.metricrenderer"/>
                         </property>
                         <property name="id">
-                            <string xml:space="preserve">c_2</string>
+                            <string xml:space="preserve">c_speed</string>
                         </property>
                         <property name="header">
                             <string xml:space="preserve">Speed</string>
@@ -108,7 +310,10 @@
                             <icon-rv id="system:system.103"/>
                         </property>
                         <property name="id">
-                            <string xml:space="preserve">c_3</string>
+                            <string xml:space="preserve">c_edit</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_basic_components.plain.14"/>
                         </property>
                         <property name="cellAlignment">
                             <object>
@@ -179,193 +384,6 @@
             </property>
         </config>
     </view>
-    <composite-view id="4" display-name="[Layout] Add or Edit Car" ts="1467598817287" public="false" component="wcf.row-layout">
-        <uuid>08cf2d6a-42e9-4dff-88eb-fd4a5cc3b035</uuid>
-        <inputs>
-            <entry key="timeRange" data-type="wcf:TimeRange"/>
-            <entry key="name" data-type="wcf:String"/>
-            <entry key="number" data-type="wcf:Double"/>
-        </inputs>
-        <flow/>
-        <config/>
-        <window id="0" view="nested">
-            <size/>
-            <config/>
-            <view id="nested" display-name="(Nested View 1)" ts="1467014826997" public="false" component="wcf.label">
-                <flow/>
-                <config>
-                    <property name="label">
-                        <string xml:space="preserve">Name</string>
-                    </property>
-                </config>
-            </view>
-        </window>
-        <window id="2" view="nested">
-            <size/>
-            <config>
-                <property name="column">
-                    <integer value="1"/>
-                </property>
-            </config>
-            <view id="nested" display-name="name" ts="1467018714775" public="false" component="wcf.input.text">
-                <inputs>
-                    <entry key="timeRange" data-type="wcf:TimeRange"/>
-                    <entry key="name" data-type="wcf:String" usage="optional" implicit="true"/>
-                </inputs>
-                <generated-context output-key="value" custom-key="name"/>
-                <flow>
-                    <on action="update">
-                        <update/>
-                    </on>
-                </flow>
-                <config/>
-            </view>
-        </window>
-        <window id="3" view="system:demo_basic_components.9">
-            <size width="200" height="20"/>
-            <context>
-                <entry key="text">
-                    <string xml:space="preserve">Number</string>
-                </entry>
-            </context>
-            <config>
-                <property name="row">
-                    <integer value="1"/>
-                </property>
-            </config>
-        </window>
-        <window id="4" view="nested">
-            <size/>
-            <config>
-                <property name="column">
-                    <integer value="1"/>
-                </property>
-                <property name="row">
-                    <integer value="1"/>
-                </property>
-            </config>
-            <view id="nested" display-name="Car Number" ts="1467598817250" public="false" component="wcf.input.number">
-                <inputs>
-                    <entry key="number" data-type="wcf:Number" usage="optional" implicit="true"/>
-                </inputs>
-                <generated-context output-key="value" custom-key="number"/>
-                <flow>
-                    <on action="update">
-                        <update/>
-                    </on>
-                </flow>
-                <config/>
-            </view>
-        </window>
-    </composite-view>
-    <view id="5" display-name="[Dialog] Add or Edit Car" ts="1467598973745" public="false" component="wcf.form">
-        <uuid>d996df23-2a5f-4cc8-9b18-5fa94dc34192</uuid>
-        <purpose name="dialog"/>
-        <inputs>
-            <entry key="timeRange" data-type="wcf:TimeRange"/>
-            <entry key="name" data-type="wcf:String" usage="optional">
-                <null-rv/>
-            </entry>
-            <entry key="action" data-type="wcf:String"/>
-            <entry key="oldName" data-type="wcf:String" usage="internal">
-                <context-rv input-key="name"/>
-            </entry>
-            <entry key="number" data-type="wcf:Double"/>
-        </inputs>
-        <flow/>
-        <config>
-            <property name="view">
-                <view-ref value="system:demo_basic_components.4"/>
-            </property>
-            <property name="actions">
-                <list-value>
-                    <object>
-                        <property name="text">
-                            <context-rv input-key="action"/>
-                        </property>
-                        <property name="reaction">
-                            <previous update="context"/>
-                        </property>
-                        <property name="validate">
-                            <function-rv id="system:demo_basic_components.addOrEditCar">
-                                <context-rv input-key="name"/>
-                                <context-rv input-key="action"/>
-                                <context-rv input-key="oldName"/>
-                                <context-rv input-key="number"/>
-                            </function-rv>
-                        </property>
-                    </object>
-                </list-value>
-            </property>
-            <property name="title">
-                <string-rv>
-                    <value xml:space="preserve">{0} Car</value>
-                    <context-rv input-key="action"/>
-                </string-rv>
-            </property>
-        </config>
-    </view>
-    <view id="9" display-name="[Label] Label" ts="1467077912412" public="false" component="wcf.label">
-        <uuid>f6eb998e-8761-4d7a-ba5b-65b2b90f37f8</uuid>
-        <purpose name="pagelet"/>
-        <inputs>
-            <entry key="timeRange" data-type="wcf:TimeRange"/>
-            <entry key="text" data-type="wcf:String"/>
-        </inputs>
-        <flow/>
-        <config>
-            <property name="label">
-                <context-rv input-key="text"/>
-            </property>
-        </config>
-    </view>
-    <view id="17" display-name="[Chart] Speed Chart" ts="1467343809082" public="false" component="wcf.chart.time-plot">
-        <uuid>21be201c-e371-43bb-b6aa-012f8b30b71b</uuid>
-        <purpose name="dialog"/>
-        <purpose name="pagelet"/>
-        <inputs>
-            <entry key="timeRange" data-type="wcf:TimeRange"/>
-            <entry key="car" data-type="foglight-5:Car"/>
-        </inputs>
-        <flow/>
-        <config>
-            <property name="simpleMetricData">
-                <object>
-                    <property name="metricBindings">
-                        <list-value>
-                            <object>
-                                <property name="metric">
-                                    <context-rv input-key="car" path="speed"/>
-                                </property>
-                            </object>
-                        </list-value>
-                    </property>
-                </object>
-            </property>
-            <property name="legend">
-                <object>
-                    <property name="visible">
-                        <boolean value="false"/>
-                    </property>
-                </object>
-            </property>
-            <property name="sizing">
-                <component-sizing>
-                    <width preferred="250"/>
-                    <height preferred="150"/>
-                </component-sizing>
-            </property>
-        </config>
-    </view>
-    <view id="18" display-name="[Button] Button" ts="1467256236085" public="false" component="wcf.input.button">
-        <uuid>1213012c-51a2-48cf-8c8b-8c44695d2fe1</uuid>
-        <flow/>
-        <config>
-            <property name="label">
-                <string xml:space="preserve">OK</string>
-            </property>
-        </config>
-    </view>
     <association usage="tab" id="12" display-name="[Tab] Table" ts="1467084820582" public="false">
         <uuid>71f9f882-aaae-4a24-b327-d71941048394</uuid>
         <inputs>
@@ -376,7 +394,7 @@
                 <i18n-rv key="system:demo_basic_components.plain.9"/>
             </property>
             <property name="view">
-                <view-ref value="system:demo_basic_components.2"/>
+                <view-ref value="system:demo_basic_components.carsSummaryTable"/>
             </property>
         </config>
     </association>
@@ -417,7 +435,7 @@
             <input name="delCars" type-name="foglight-5:Car" list="true"/>
         </inputs>
     </script-function>
-    <script-function type="groovy" id="addOrEditCar" display-name="Add or Edit Car" ts="1547189212607" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+    <script-function type="groovy" id="addOrEditCar" display-name="Add or Edit Car" ts="1547192439882" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
         <uuid>7e2c1759-e083-4f30-8730-1e120899d740</uuid>
         <inputs>
             <input name="name" type-name="wcf:String"/>

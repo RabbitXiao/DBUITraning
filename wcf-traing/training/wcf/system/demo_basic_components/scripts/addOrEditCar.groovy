@@ -6,6 +6,7 @@ if (action == 'add') {
 	def topologyType = topologyService.createType("Car")
 	def shell = topologyService.getObjectShell(topologyType)
 	shell.set("name", name)
+        shell.set("number", number)
 	topologyService.mergeData(shell)
 } else if (action == 'edit')  {
 	allCars = functionHelper.invokeFunction("system:demo_basic_components.getAllCars");
