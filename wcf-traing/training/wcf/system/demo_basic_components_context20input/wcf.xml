@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Context Input" last-entity-id="0" parent="system:demo_basic_components">
+    <view id="carPriceNumberInput" display-name="Car Price Number Input" ts="1547195435312" public="false" component="wcf.input.number">
+        <uuid>434d68d0-c3ec-40be-9724-4f0913b71e97</uuid>
+        <inputs>
+            <entry key="price" data-type="wcf:Number" usage="optional" implicit="true"/>
+        </inputs>
+        <generated-context output-key="value" custom-key="price"/>
+        <flow>
+            <on action="update">
+                <update/>
+            </on>
+        </flow>
+        <config/>
+    </view>
+    <view id="Branddropdownlist" display-name="Brand dropdown list" ts="1547195474845" public="false" component="wcf.drop-down">
+        <uuid>d76f6a22-b4f3-493f-a855-d5f576be1af7</uuid>
+        <inputs>
+            <entry key="brand" data-type="wcf:String" usage="optional" implicit="true"/>
+        </inputs>
+        <generated-context output-key="selectedItem" custom-key="brand"/>
+        <flow>
+            <on action="selection">
+                <update/>
+            </on>
+        </flow>
+        <config>
+            <property name="items">
+                <function-rv id="system:demo_basic_components.getBrands"/>
+            </property>
+        </config>
+    </view>
+    <composite-view id="carPropertiesLayout" display-name="Car Properties Layout" ts="1547196881593" public="false" component="wcf.row-layout">
+        <uuid>b3adf470-5a5d-4185-98a0-d1f2c34b2c4b</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="name" data-type="wcf:String"/>
+            <entry key="brand" data-type="wcf:Double"/>
+            <entry key="price" data-type="wcf:Object"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="nested">
+            <size width="80"/>
+            <config/>
+            <view id="nested" display-name="name" ts="1547195060855" public="false" component="wcf.label">
+                <flow/>
+                <config>
+                    <property name="label">
+                        <string xml:space="preserve">Name</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="2" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="name" ts="1547195027814" public="false" component="wcf.input.text">
+                <inputs>
+                    <entry key="name" data-type="wcf:String" usage="optional" implicit="true"/>
+                </inputs>
+                <generated-context output-key="value" custom-key="name"/>
+                <flow>
+                    <on action="update">
+                        <update/>
+                    </on>
+                </flow>
+                <config/>
+            </view>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="80" height="20"/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_basic_components_context20input.plain.2"/>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_basic_components_context20input.carPriceNumberInput">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_basic_components.9">
+            <size width="80" height="20"/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_basic_components_context20input.plain.3"/>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+        </window>
+        <window id="6" view="system:demo_basic_components_context20input.Branddropdownlist">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <view id="addOrEditCarDialog" display-name="Add or Edit Car Dialog" ts="1547196892935" public="false" component="wcf.form">
+        <uuid>8bed5659-15b8-4d8c-8c21-10c6245230f4</uuid>
+        <purpose name="dialog"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="name" data-type="wcf:String" usage="optional">
+                <null-rv/>
+            </entry>
+            <entry key="action" data-type="wcf:String"/>
+            <entry key="brand" data-type="wcf:String" usage="internal">
+                <context-rv input-key="name"/>
+            </entry>
+            <entry key="price" data-type="wcf:Double"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="view">
+                <view-ref value="system:demo_basic_components_context20input.carPropertiesLayout"/>
+            </property>
+            <property name="actions">
+                <list-value>
+                    <object>
+                        <property name="text">
+                            <context-rv input-key="action"/>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context"/>
+                        </property>
+                        <property name="validate">
+                            <function-rv id="system:demo_basic_components.addOrEditCar">
+                                <context-rv input-key="action"/>
+                                <context-rv input-key="name"/>
+                                <context-rv input-key="brand"/>
+                                <context-rv input-key="price"/>
+                            </function-rv>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="title">
+                <string-rv>
+                    <value xml:space="preserve">{0} Car</value>
+                    <context-rv input-key="action"/>
+                </string-rv>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="200"/>
+                    <height preferred="150"/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <view id="carsSummaryTable" display-name="[table] Cars Summary Table" ts="1547196956637" public="false" component="wcf.table.row-table">
+        <uuid>42fe61f0-04f7-49f2-a82a-1d58cff2a8bf</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedRows" data-type="foglight-5:Car" list="true" usage="optional" implicit="true"/>
+        </inputs>
+        <flow>
+            <on action="cellSelection">
+                <generated-context output-key="selectedRow" custom-key="selRow"/>
+                <generated-context output-key="selectedColumnId" custom-key="selRowId"/>
+                <choose-value key="selRowId">
+                    <case value="c_edit">
+                        <popup id="system:demo_basic_components_context20input.addOrEditCarDialog">
+                            <context>
+                                <entry key="action">
+                                    <string xml:space="preserve">edit</string>
+                                </entry>
+                                <entry key="name">
+                                    <context-rv input-key="selRow" path="name"/>
+                                </entry>
+                                <entry key="brand">
+                                    <context-rv input-key="selRow" path="brand"/>
+                                </entry>
+                                <entry key="price">
+                                    <context-rv input-key="selRow" path="price"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <default>
+                        <nop/>
+                    </default>
+                </choose-value>
+            </on>
+            <on action="rowsSelection">
+                <generated-context output-key="selectedRows" custom-key="selectedRows"/>
+                <nop/>
+            </on>
+            <on action="dwell">
+                <generated-context output-key="selectedRow" custom-key="selRow"/>
+                <generated-context output-key="selectedColumnId" custom-key="selRowId"/>
+                <choose-value key="selRowId">
+                    <case value="c_name">
+                        <popup id="system:demo_basic_components.9" type="temporary">
+                            <context>
+                                <entry key="text">
+                                    <i18n-rv key="system:demo_basic_components.plain.16">
+                                        <context-rv input-key="selRow" path="name"/>
+                                    </i18n-rv>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <default>
+                        <nop/>
+                    </default>
+                </choose-value>
+            </on>
+        </flow>
+        <config>
+            <property name="rows">
+                <function-rv id="system:demo_basic_components.getAllCars"/>
+            </property>
+            <property name="columns">
+                <list-value>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="name" renderer-id="system:demo.textrenderer"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_name</string>
+                        </property>
+                        <property name="header">
+                            <string xml:space="preserve">Car Name</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="brand"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_brand</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_basic_components_context20input.plain.3"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="price"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_price</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_basic_components_context20input.plain.2"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <icon-rv id="system:system.103"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_edit</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_basic_components_context20input.plain.5"/>
+                        </property>
+                        <property name="cellAlignment">
+                            <object>
+                                <property name="horizontal">
+                                    <enum value="center"/>
+                                </property>
+                            </object>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="selectionConfiguration">
+                <object>
+                    <property name="autoSelectPolicy">
+                        <enum value="none"/>
+                    </property>
+                </object>
+            </property>
+            <property name="actionGroups">
+                <list-value>
+                    <object>
+                        <property name="actions">
+                            <list-value>
+                                <object>
+                                    <property name="icon">
+                                        <icon-ref value="system:administration.128"/>
+                                    </property>
+                                    <property name="label">
+                                        <string xml:space="preserve">Add</string>
+                                    </property>
+                                    <property name="reaction">
+                                        <popup id="system:demo_basic_components_context20input.addOrEditCarDialog">
+                                            <context>
+                                                <entry key="action">
+                                                    <string xml:space="preserve">add</string>
+                                                </entry>
+                                            </context>
+                                        </popup>
+                                    </property>
+                                </object>
+                            </list-value>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="selectionActions">
+                <list-value>
+                    <object>
+                        <property name="icon">
+                            <icon-ref value="system:system.76"/>
+                        </property>
+                        <property name="label">
+                            <string xml:space="preserve">Remve</string>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context">
+                                <context>
+                                    <entry key="statusmsg">
+                                        <function-rv id="system:demo_basic_components.removeCars">
+                                            <context-rv input-key="selectedRows"/>
+                                        </function-rv>
+                                    </entry>
+                                </context>
+                            </previous>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+        </config>
+    </view>
+</module>

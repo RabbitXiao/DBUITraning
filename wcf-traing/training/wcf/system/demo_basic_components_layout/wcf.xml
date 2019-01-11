@@ -108,7 +108,7 @@
                 </property>
             </config>
         </window>
-        <window id="6" view="system:demo_basic_components.18">
+        <window id="6" view="system:demo_basic_components_layout.button">
             <size width="200" height="20"/>
             <config>
                 <property name="row">
@@ -449,7 +449,7 @@
                 </property>
             </config>
         </window>
-        <window id="7" view="system:demo_basic_components.18">
+        <window id="7" view="system:demo_basic_components_layout.button">
             <size width="200" height="20"/>
             <config>
                 <property name="column">
@@ -464,4 +464,13 @@
             </config>
         </window>
     </composite-view>
+    <view id="button" display-name="[Button] Button" ts="1547196930777" public="false" component="wcf.input.button">
+        <uuid>decb18e9-dfb1-472b-b17e-f92584aba419</uuid>
+        <flow/>
+        <config>
+            <property name="label">
+                <string xml:space="preserve">OK</string>
+            </property>
+        </config>
+    </view>
 </module>

@@ -24,9 +24,9 @@
                         <include name="wcf/system/demo_basic_components/**"/>
                     </fileset>
                 </wcf>
-				<wcf name="BasicTrainingModule" prefixwcf="false">
+				<wcf name="ContextInputModule" prefixwcf="false">
                     <fileset dir="training">
-                        <include name="wcf/system/demo_basic_components_training/**"/>
+                        <include name="wcf/system/demo_basic_components_context20input/**"/>
                     </fileset>
                 </wcf>
 				<wcf name="BeanInputModule" prefixwcf="false">

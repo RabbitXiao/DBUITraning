@@ -32,6 +32,7 @@ GOTO:EOF
 	call :EXPORT_MODULE demo
 	call :EXPORT_MODULE demo_basic_components
 	call :EXPORT_MODULE demo_basic_components_layout
+	call :EXPORT_MODULE demo_basic_components_context20input
 	call :EXPORT_MODULE demo_bean_input
 	call :EXPORT_MODULE demo_bean_input_training
 	call :EXPORT_MODULE demo_user20management
