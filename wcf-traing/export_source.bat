@@ -7,8 +7,8 @@ GOTO:EOF
 
 :SET_ENVIROMENT
 echo ===========================
-set FOGLIGHT_SERVER_IP=10.154.10.8
-set FOGLIGHT_BIN_PATH=C:\Dell\Foglight5_7_3\bin
+set FOGLIGHT_SERVER_IP=10.154.10.160
+set FOGLIGHT_BIN_PATH=c:\Quest_Software\Foglight_5_7_5_3_For_Chekov\bin
 set CARTRIDGE_NAME="TrainingCartridge"
 
 set CUR_DIR=%cd%
@@ -31,7 +31,7 @@ GOTO:EOF
 	echo Export modules in %CARTRIDGE_NAME% cartridge.
 	call :EXPORT_MODULE demo
 	call :EXPORT_MODULE demo_basic_components
-	call :EXPORT_MODULE demo_basic_components_training
+	call :EXPORT_MODULE demo_basic_components_layout
 	call :EXPORT_MODULE demo_bean_input
 	call :EXPORT_MODULE demo_bean_input_training
 	call :EXPORT_MODULE demo_user20management

@@ -1,0 +1,467 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="layout" last-entity-id="0" parent="system:demo_basic_components">
+    <composite-view id="layoutContainer" display-name="[Layout] Layout Container" ts="1547190315728" public="false" component="wcf.grid2">
+        <uuid>c73dce3a-4cb8-4755-b413-4c7179677291</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_basic_components_layout.columnsLayout">
+            <size/>
+            <config>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components_layout.rowsLayout">
+            <size/>
+            <config>
+                <property name="collapsed">
+                    <boolean value="true"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components_layout.gridLayout">
+            <size/>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="columnsLayout" display-name="[Layout] Columns Layout" ts="1547190335758" public="false" component="wcf.column-layout">
+        <uuid>3f100fb6-db61-4631-af38-2217a6b425ad</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_basic_components_layout.plain.1"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">A</string>
+                </entry>
+            </context>
+            <config>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">B</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="6" view="system:demo_basic_components.18">
+            <size width="200" height="20"/>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">C</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">D</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">E</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">F</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="rowsLayout" display-name="[Layout] Rows Layout" ts="1547190371639" public="false" component="wcf.row-layout">
+        <uuid>a806274c-cf97-4605-a36d-812d3f6303c0</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="allowCollapse">
+                <boolean value="true"/>
+            </property>
+            <property name="title">
+                <i18n-rv key="system:demo_basic_components_layout.plain.3"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">A</string>
+                </entry>
+            </context>
+            <config>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">B</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">C</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">D</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">E</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">F</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="gridLayout" display-name="[Layout] Grid Layout" ts="1547190389017" public="false" component="wcf.grid2">
+        <uuid>1198962c-6927-4947-8bec-56360ff48008</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_basic_components_layout.plain.4"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_basic_components.9">
+            <size width="405" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">A</string>
+                </entry>
+            </context>
+            <config>
+                <property name="colspan">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_basic_components.9">
+            <size width="200" height="70"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">F</string>
+                </entry>
+            </context>
+            <config>
+                <property name="rowspan">
+                    <integer value="3"/>
+                </property>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_basic_components.9">
+            <size width="200" height="45"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">B</string>
+                </entry>
+            </context>
+            <config>
+                <property name="rowspan">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">C</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_basic_components.9">
+            <size width="200" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">D</string>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_basic_components.9" scrollbars="auto">
+            <size width="610" height="20"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">E</string>
+                </entry>
+            </context>
+            <config>
+                <property name="colspan">
+                    <integer value="3"/>
+                </property>
+                <property name="row">
+                    <integer value="3"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="6" view="system:demo_basic_components.9">
+            <size width="600" height="60"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">G</string>
+                </entry>
+            </context>
+            <config>
+                <property name="colspan">
+                    <integer value="3"/>
+                </property>
+                <property name="rowspan">
+                    <integer value="3"/>
+                </property>
+                <property name="row">
+                    <integer value="4"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+        <window id="7" view="system:demo_basic_components.18">
+            <size width="200" height="20"/>
+            <config>
+                <property name="column">
+                    <integer value="2"/>
+                </property>
+                <property name="row">
+                    <integer value="7"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+</module>

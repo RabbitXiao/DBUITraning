@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Demo" last-entity-id="2">
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Demo" last-entity-id="2" main-view="2">
     <view id="2" display-name="Demo" ts="1467358396311" public="false" component="wcf.tab-manager">
         <uuid>0d574a49-20da-4fe7-b120-5d2cf8046a1c</uuid>
         <purpose name="homepage"/>
