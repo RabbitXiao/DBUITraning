@@ -66,7 +66,7 @@
         </flow>
         <config>
             <property name="rows">
-                <function-rv id="system:demo_basic_components.1"/>
+                <function-rv id="system:demo_basic_components.getAllCars"/>
             </property>
             <property name="columns">
                 <list-value>
@@ -167,7 +167,7 @@
                             <previous update="context">
                                 <context>
                                     <entry key="statusmsg">
-                                        <function-rv id="system:demo_basic_components.8">
+                                        <function-rv id="system:demo_basic_components.removeCars">
                                             <context-rv input-key="selectedRows"/>
                                         </function-rv>
                                     </entry>
@@ -287,7 +287,7 @@
                             <previous update="context"/>
                         </property>
                         <property name="validate">
-                            <function-rv id="system:demo_basic_components.6">
+                            <function-rv id="system:demo_basic_components.addOrEditCar">
                                 <context-rv input-key="name"/>
                                 <context-rv input-key="action"/>
                                 <context-rv input-key="oldName"/>
@@ -872,22 +872,22 @@
             </property>
         </config>
     </association>
-    <script-function type="groovy" id="1" display-name="getAllCars" ts="1467270404302" public="false" output-type="foglight-5:Car" output-list="true" cache-results="true">
-        <uuid>5df94520-6956-4c72-9d27-f429e17c58b0</uuid>
+    <script-function type="groovy" id="getAllCars" display-name="getAllCars" ts="1547189131304" public="false" output-type="foglight-5:Car" output-list="true" cache-results="true">
+        <uuid>c691f8f4-3b6d-456d-a960-394025ebe53e</uuid>
     </script-function>
-    <script-function type="groovy" id="6" display-name="Add or Edit Car" ts="1467598936604" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
-        <uuid>c8a5e1e2-c1f8-4666-9e7e-6d59bd214746</uuid>
+    <script-function type="groovy" id="removeCars" display-name="removeCars" ts="1547189172598" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>6e6eaf75-e548-4358-bbc9-8669706de666</uuid>
+        <inputs>
+            <input name="delCars" type-name="foglight-5:Car" list="true"/>
+        </inputs>
+    </script-function>
+    <script-function type="groovy" id="addOrEditCar" display-name="Add or Edit Car" ts="1547189212607" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>7e2c1759-e083-4f30-8730-1e120899d740</uuid>
         <inputs>
             <input name="name" type-name="wcf:String"/>
             <input name="action" type-name="wcf:String"/>
             <input name="oldName" type-name="wcf:String"/>
             <input name="number" type-name="wcf:Double"/>
-        </inputs>
-    </script-function>
-    <script-function type="groovy" id="8" display-name="Remove Cars" ts="1467021037003" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
-        <uuid>61faf46f-b034-47aa-85ea-4161a7f63f0c</uuid>
-        <inputs>
-            <input name="delCars" type-name="foglight-5:Car" list="true"/>
         </inputs>
     </script-function>
 </module>

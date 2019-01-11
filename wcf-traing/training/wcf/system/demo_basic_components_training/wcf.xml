@@ -8,7 +8,7 @@
         </inputs>
         <context>
             <entry key="cars">
-                <function-rv id="system:demo_basic_components.1"/>
+                <function-rv id="system:demo_basic_components.getAllCars"/>
             </entry>
         </context>
         <flow>
@@ -151,7 +151,7 @@
                             <update>
                                 <context>
                                     <entry key="statusMessages">
-                                        <function-rv id="system:demo_basic_components.8">
+                                        <function-rv id="system:demo_basic_components.removeCars">
                                             <context-rv input-key="seletedRows"/>
                                         </function-rv>
                                     </entry>

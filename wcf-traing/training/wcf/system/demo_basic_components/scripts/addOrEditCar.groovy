@@ -8,7 +8,7 @@ if (action == 'add') {
 	shell.set("name", name)
 	topologyService.mergeData(shell)
 } else if (action == 'edit')  {
-	allCars = functionHelper.invokeFunction("system:demo_basic_components.1");
+	allCars = functionHelper.invokeFunction("system:demo_basic_components.getAllCars");
 	def id = allCars.find{it.getName() == oldName}?.getUniqueId()
 	def car = topologyService.getObject(id);
 	def updateObj = topologyService.beginUpdate(car);
