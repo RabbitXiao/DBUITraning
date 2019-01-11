@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types xmlns="urn:quest-com:wcf-types-3-0">
+    <type name="AdvancedUser" extends="wcf:DataObject">
+        <set annotation="reloadable">false</set>
+        <property name="userName" type="wcf:Object"/>
+        <property name="position" type="wcf:Object"/>
+    </type>
+    <type name="NormalUser" extends="wcf:DataObject">
+        <set annotation="reloadable">false</set>
+        <property name="userName" type="wcf:String"/>
+    </type>
+    <type name="OtherUser" extends="wcf:DataObject">
+        <set annotation="reloadable">false</set>
+        <property name="userName" type="wcf:String"/>
+        <property name="description" type="wcf:String"/>
+    </type>
+    <type name="SuperUser" extends="wcf:DataObject">
+        <set annotation="reloadable">false</set>
+        <property name="userName" type="wcf:String"/>
+        <property name="position" type="wcf:String"/>
+        <property name="responsibility" type="wcf:String"/>
+    </type>
+    <type name="UserInfo" extends="wcf:DataObject">
+        <set annotation="reloadable">false</set>
+        <property name="name" type="wcf:String"/>
+        <property name="object" type="wcf:DataObject"/>
+    </type>
+</types>

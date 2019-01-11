@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Switch by Type Layout" last-entity-id="1" parent="system:demo_user20management">
+    <view id="differentDataTypeUserSelection" display-name="Different Data Type User Selection" ts="1467797830485" public="false" primary-input-key="userInfo" component="wcf.drop-down">
+        <uuid>2a72767f-b71a-4c50-a80c-8728a84472d2</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="userInfo" data-type="demo_user20management_switch20by20type20layout:UserInfo" usage="optional" implicit="true"/>
+        </inputs>
+        <generated-context output-key="selectedItem" custom-key="userInfo"/>
+        <flow>
+            <on action="selection">
+                <update/>
+            </on>
+        </flow>
+        <config>
+            <property name="items">
+                <function-rv id="system:demo_user20management_switch20by20type20layout.getUserDataObjects"/>
+            </property>
+        </config>
+    </view>
+    <composite-view id="normalUserView" display-name="Normal User View" ts="1467800106208" public="false" priority="p1" component="wcf.grid2">
+        <uuid>1dc11782-9903-4d62-b9ba-bfd6326018bf</uuid>
+        <custom-purpose name="userInfoDisplay"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="user" data-type="demo_user20management_switch20by20type20layout:NormalUser"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.5"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.4"/>
+                </entry>
+            </context>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="userName"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <view id="switchUserViewByType" display-name="Switch User View by Type" ts="1467859553094" public="false" component="wcf.switch">
+        <uuid>5724677c-a94b-47e8-ae10-4a3e2accc828</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedUserObject" data-type="wcf:DataObject"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="input">
+                <context-rv input-key="selectedUserObject"/>
+            </property>
+            <property name="views">
+                <list-value>
+                    <object>
+                        <property name="view">
+                            <view-ref value="system:demo_user20management_switch20by20type20layout.advancedUserView"/>
+                        </property>
+                        <property name="type">
+                            <data-object-type datasource-type="demo_user20management_switch20by20type20layout" data-type="AdvancedUser"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="view">
+                            <view-ref value="system:demo_user20management_switch20by20type20layout.normalUserView"/>
+                        </property>
+                        <property name="type">
+                            <data-object-type datasource-type="demo_user20management_switch20by20type20layout" data-type="NormalUser"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="view">
+                            <view-ref value="system:demo_user20management_switch20by20type20layout.superUserView"/>
+                        </property>
+                        <property name="type">
+                            <data-object-type datasource-type="demo_user20management_switch20by20type20layout" data-type="SuperUser"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="view">
+                            <view-ref value="system:demo_user20management_switch20by20type20layout.otherUserView"/>
+                        </property>
+                        <property name="type">
+                            <data-object-type datasource-type="demo_user20management_switch20by20type20layout" data-type="OtherUser"/>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <composite-view id="differentUserTypeSelection" display-name="Different User Type Selection" ts="1467799252648" public="false" component="wcf.grid2">
+        <uuid>2b57e77b-49c7-4b64-a205-36f9b31b0643</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="userInfo" data-type="demo_user20management_switch20by20type20layout:UserInfo" usage="internal"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_user20management_switch20by20type20layout.userTypeSelection">
+            <size/>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management_switch20by20type20layout.switchUserViewByType">
+            <size/>
+            <context>
+                <entry key="selectedUserObject">
+                    <function-rv id="system:demo_user20management_switch20by20type20layout.getUserObject">
+                        <context-rv input-key="userInfo"/>
+                    </function-rv>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="valign">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="vweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="advancedUserView" display-name="Advanced User View" ts="1467800341865" public="false" priority="p1" component="wcf.grid2">
+        <uuid>39759c72-7090-466e-87ec-c7bd36ba33c3</uuid>
+        <custom-purpose name="userInfoDisplay"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="user" data-type="demo_user20management_switch20by20type20layout:AdvancedUser"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.4"/>
+                </entry>
+            </context>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="userName"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.8"/>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="position"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <view id="userTypeSelection" display-name="User Type Selection" ts="1467798652283" public="false" component="wcf.table.row-table">
+        <uuid>d0c86449-5c64-4b99-a975-c2d0078d1c44</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="userInfo" data-type="demo_user20management_switch20by20type20layout:UserInfo" usage="optional" implicit="true"/>
+        </inputs>
+        <flow>
+            <on action="rowSelection">
+                <generated-context output-key="selectedRow" custom-key="userInfo"/>
+                <update/>
+            </on>
+        </flow>
+        <config>
+            <property name="rows">
+                <function-rv id="system:demo_user20management_switch20by20type20layout.getUserDataObjects"/>
+            </property>
+            <property name="columns">
+                <list-value>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="name"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_0</string>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="dropDownModeConfiguration">
+                <object>
+                    <property name="dropDownModeEnabled">
+                        <enum value="inputMode"/>
+                    </property>
+                    <property name="selectedItemLabel">
+                        <context-rv input-key="currentSelectedRow" path="name"/>
+                    </property>
+                </object>
+            </property>
+            <property name="largeDataVisibleRowLimit">
+                <integer value="3"/>
+            </property>
+            <property name="searchingConfiguration">
+                <object>
+                    <property name="enabled">
+                        <boolean value="true"/>
+                    </property>
+                </object>
+            </property>
+        </config>
+    </view>
+    <composite-view id="superUserView" display-name="Super User View" ts="1467800313331" public="false" priority="p1" component="wcf.grid2">
+        <uuid>e61eea75-635d-4240-a264-1289eb2d99fe</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <custom-purpose name="userInfoDisplay"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="user" data-type="demo_user20management_switch20by20type20layout:SuperUser"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.4"/>
+                </entry>
+            </context>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="userName"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.8"/>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="position"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="4" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.14"/>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+        </window>
+        <window id="5" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="responsibility"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="otherUserView" display-name="Other User View" ts="1467861073052" public="false" priority="p1" component="wcf.grid2">
+        <uuid>24143657-dfc4-40c5-bbc3-eef031ddc71c</uuid>
+        <custom-purpose name="userInfoDisplay"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="user" data-type="demo_user20management_switch20by20type20layout:OtherUser"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.5"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.4"/>
+                </entry>
+            </context>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="userName"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_switch20by20type20layout.plain.16"/>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="3" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="user" path="description"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <script-function type="groovy" id="getUserDataObjects" display-name="getUserDataObjects" ts="1467859598485" public="false" output-type="demo_user20management_switch20by20type20layout:UserInfo" output-list="true" cache-results="true">
+        <uuid>9c99341b-4bc7-478e-9140-946a6600e096</uuid>
+    </script-function>
+    <script-function type="groovy" id="getUserObject" display-name="getUserDataObject" ts="1467799214259" public="false" output-type="wcf:DataObject" cache-results="true">
+        <uuid>557b49cf-254c-459e-bd62-31c355bf9be3</uuid>
+        <inputs>
+            <input name="userInfo" type-name="wcf:DataObject"/>
+        </inputs>
+    </script-function>
+</module>

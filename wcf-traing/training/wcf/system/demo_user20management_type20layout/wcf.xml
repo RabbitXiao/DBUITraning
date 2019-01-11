@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Type Layout" last-entity-id="1" parent="system:demo_user20management">
+    <query select="metadata2:CompositeView" id="getCompositeView" display-name="getCompositeView" ts="1467794604633" public="false">
+        <uuid>d65101d6-3dfb-4504-95db-75e276a271a6</uuid>
+        <where>
+            <comparison operator="regExp">
+                <data-path path="customPurposes"/>
+                <string xml:space="preserve">userInfoDisplay</string>
+            </comparison>
+        </where>
+        <root>
+            <datasource-root-reference datasource-type="metadata2" path="moduleItems/module/views"/>
+        </root>
+    </query>
+    <view id="userType" display-name="User Type View Display" ts="1467860993668" public="false" component="wcf.type">
+        <uuid>601e887c-991b-4e9b-8004-e9e28756682d</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedUserObject" data-type="wcf:DataObject"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="input">
+                <context-rv input-key="selectedUserObject"/>
+            </property>
+            <property name="selectorMode">
+                <enum value="none"/>
+            </property>
+            <property name="viewsFilter">
+                <object>
+                    <property name="showAllViews">
+                        <boolean value="false"/>
+                    </property>
+                    <property name="showPageViews">
+                        <boolean value="false"/>
+                    </property>
+                    <property name="showDialogViews">
+                        <boolean value="false"/>
+                    </property>
+                    <property name="showMenuViews">
+                        <boolean value="false"/>
+                    </property>
+                    <property name="showSummaryViews">
+                        <boolean value="false"/>
+                    </property>
+                    <property name="showCustomViews">
+                        <string xml:space="preserve">userInfoDisplay</string>
+                    </property>
+                </object>
+            </property>
+            <property name="cooperativeLayout">
+                <enum value="on"/>
+            </property>
+        </config>
+    </view>
+    <composite-view id="differentDayTypeUserSelection" display-name="Different Data Type User Selection" ts="1467799854506" public="false" component="wcf.grid2">
+        <uuid>c75bca53-d72a-4473-8fb5-38e2cc5eb472</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="userInfo" data-type="demo_user20management_switch20by20type20layout:UserInfo" usage="internal"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_user20management_switch20by20type20layout.userTypeSelection">
+            <size/>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management_type20layout.userType">
+            <size/>
+            <context>
+                <entry key="selectedUserObject">
+                    <function-rv id="system:demo_user20management_switch20by20type20layout.getUserObject">
+                        <context-rv input-key="userInfo"/>
+                    </function-rv>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="valign">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="vweight">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+</module>

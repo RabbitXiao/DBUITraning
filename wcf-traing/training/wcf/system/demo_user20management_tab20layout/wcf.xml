@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Tab Layout" last-entity-id="0" parent="system:demo_user20management">
+    <composite-view id="userManagementTab" display-name="User Management Tab" ts="1467857762793" public="false" component="wcf.tab-container">
+        <uuid>803fbefe-8320-49a2-a41f-ca6a61f20003</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="displayStyle">
+                <enum value="standard"/>
+            </property>
+        </config>
+        <window id="0" view="system:demo_user20management.userListTable">
+            <size/>
+            <config>
+                <property name="tabID">
+                    <string xml:space="preserve">userList</string>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_user20management.departmentView">
+            <size/>
+            <config>
+                <property name="tabID">
+                    <string xml:space="preserve">department</string>
+                </property>
+            </config>
+        </window>
+        <window id="2" view="system:demo_user20management.companyView">
+            <size/>
+            <config>
+                <property name="tabID">
+                    <string xml:space="preserve">company</string>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <view id="userTabManager" display-name="User Tab Manager" ts="1467858079856" public="false" component="wcf.tab-manager">
+        <uuid>3e769b2a-221c-47cc-9fa2-f412b51699e1</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="tabs">
+                <list-value>
+                    <association-ref value="system:demo_user20management_tab20layout.userListTableTab"/>
+                    <association-ref value="system:demo_user20management_tab20layout.departmentViewTab"/>
+                    <association-ref value="system:demo_user20management_tab20layout.companyViewAssociation"/>
+                </list-value>
+            </property>
+            <property name="initialTab">
+                <association-ref value="system:demo_user20management_tab20layout.userListTableTab"/>
+            </property>
+        </config>
+    </view>
+    <view id="flexibleUserTabManager" display-name="Flexible User Tab Manager" ts="1467688796953" public="false" component="wcf.tab-manager">
+        <uuid>b843d5d4-da91-47b6-ac10-1fdc365bc130</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="tags">
+                <list-value>
+                    <string xml:space="preserve">userTag</string>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <association usage="tab" id="departmentViewTab" display-name="deparmentViewTab" ts="1467858322655" public="false">
+        <uuid>74f87d24-8941-4c9f-83d1-f78264831682</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="label">
+                <i18n-rv key="system:demo_user20management_tab20layout.plain.2"/>
+            </property>
+            <property name="view">
+                <view-ref value="system:demo_user20management.departmentView"/>
+            </property>
+            <property name="tags">
+                <list-value>
+                    <string xml:space="preserve">userTag</string>
+                </list-value>
+            </property>
+            <property name="priority">
+                <integer value="3"/>
+            </property>
+        </config>
+    </association>
+    <association usage="tab" id="userListTableTab" display-name="userListTableTab" ts="1467858423887" public="false">
+        <uuid>1ca0bf7d-a4e0-42ee-80b0-bca6ea79c92a</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="label">
+                <i18n-rv key="system:demo_user20management_tab20layout.plain.5"/>
+            </property>
+            <property name="view">
+                <view-ref value="system:demo_user20management.userListTable"/>
+            </property>
+            <property name="tags">
+                <list-value>
+                    <string xml:space="preserve">userTag</string>
+                </list-value>
+            </property>
+            <property name="priority">
+                <integer value="2"/>
+            </property>
+        </config>
+    </association>
+    <association usage="tab" id="companyViewAssociation" display-name="companyViewAssociation" ts="1467858342549" public="false">
+        <uuid>5ac77f46-de82-449b-8285-1d3522004b3f</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="label">
+                <i18n-rv key="system:demo_user20management_tab20layout.plain.11"/>
+            </property>
+            <property name="view">
+                <view-ref value="system:demo_user20management.companyView"/>
+            </property>
+            <property name="tags">
+                <list-value>
+                    <string xml:space="preserve">userTag</string>
+                </list-value>
+            </property>
+            <property name="priority">
+                <integer value="1"/>
+            </property>
+        </config>
+    </association>
+</module>

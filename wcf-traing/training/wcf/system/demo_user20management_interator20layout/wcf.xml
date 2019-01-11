@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Interator Layout" last-entity-id="0" parent="system:demo_user20management">
+    <composite-view id="userView" display-name="User View" ts="1467690654942" public="false" component="wcf.column-layout">
+        <uuid>c83836a3-9282-4274-aaea-3ffea6356a97</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="200"/>
+                    <height preferred="150"/>
+                </component-sizing>
+            </property>
+        </config>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management_interator20layout.plain.1"/>
+                </entry>
+            </context>
+            <config>
+                <property name="hweight">
+                    <integer value="0"/>
+                </property>
+                <property name="vweight">
+                    <integer value="0"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="system:demo_user20management.valueLabel">
+            <size/>
+            <context>
+                <entry key="value">
+                    <context-rv input-key="uiDemoUser" path="userName"/>
+                </entry>
+            </context>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="hweight">
+                    <integer value="0"/>
+                </property>
+                <property name="vweight">
+                    <integer value="0"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <composite-view id="usersIterator" display-name="Users Iterator" ts="1467697498807" public="false" component="wcf.iterator">
+        <uuid>16160eec-c047-43b0-bc94-98677f8bdccd</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="key">
+                <string xml:space="preserve">uiDemoUser</string>
+            </property>
+            <property name="objects">
+                <function-rv id="system:demo_user20management.getUIDemoUserList"/>
+            </property>
+            <property name="iteratedView">
+                <object>
+                    <property name="view">
+                        <view-ref value="system:demo_user20management_interator20layout.userView"/>
+                    </property>
+                    <property name="width">
+                        <length value="500"/>
+                    </property>
+                    <property name="height">
+                        <length value="400"/>
+                    </property>
+                    <property name="showTitle">
+                        <boolean value="true"/>
+                    </property>
+                    <property name="showBorder">
+                        <boolean value="true"/>
+                    </property>
+                </object>
+            </property>
+            <property name="separator">
+                <boolean value="true"/>
+            </property>
+        </config>
+    </composite-view>
+</module>

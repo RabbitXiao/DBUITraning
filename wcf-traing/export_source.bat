@@ -34,6 +34,13 @@ GOTO:EOF
 	call :EXPORT_MODULE demo_basic_components_training
 	call :EXPORT_MODULE demo_bean_input
 	call :EXPORT_MODULE demo_bean_input_training
+	call :EXPORT_MODULE demo_user20management
+	call :EXPORT_MODULE demo_user20management_interator20layout
+	call :EXPORT_MODULE demo_user20management_switch20by20type20layout
+	call :EXPORT_MODULE demo_user20management_switch20layout
+	call :EXPORT_MODULE demo_user20management_switch20to20layout
+	call :EXPORT_MODULE demo_user20management_tab20layout
+	call :EXPORT_MODULE demo_user20management_type20layout
 GOTO:EOF
 
 :EXPORT_MODULE

@@ -1,0 +1,1150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="User Management" last-entity-id="4" parent="system:demo">
+    <view id="userListTable" display-name="User List Table" ts="1467857878514" public="false" component="wcf.table.row-table">
+        <uuid>08d3d8d8-c536-45a6-87b4-351681b21a1e</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selDemoUser" data-type="demo_user20management:UIDemoUser" usage="optional" implicit="true"/>
+        </inputs>
+        <flow>
+            <on action="cellSelection">
+                <generated-context output-key="selectedColumnId" custom-key="selColumnId"/>
+                <generated-context output-key="selectedRow" custom-key="selDemoUser"/>
+                <choose-value key="selColumnId">
+                    <case value="c_edit">
+                        <popup id="system:demo_user20management.editUserDialog">
+                            <context>
+                                <entry key="uiDemoUser">
+                                    <context-rv input-key="selDemoUser"/>
+                                </entry>
+                            </context>
+                        </popup>
+                    </case>
+                    <default>
+                        <update/>
+                    </default>
+                </choose-value>
+            </on>
+            <on action="rowSelection">
+                <generated-context output-key="selectedRow" custom-key="selDemoUser"/>
+                <generated-context output-key="selectedColumnId" custom-key="selColumnId"/>
+                <nop/>
+            </on>
+        </flow>
+        <config>
+            <property name="rows">
+                <function-rv id="system:demo_user20management.getUIDemoUserList"/>
+            </property>
+            <property name="columns">
+                <list-value>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="userName"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_username</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_user20management.plain.3"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <function-rv id="system:demo_user20management.getSexualName">
+                                <context-rv input-key="currentRow" path="sex"/>
+                            </function-rv>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_sex</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_user20management.plain.4"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="phoneNumber"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_phonenumber</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_user20management.plain.5"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="email"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_email</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_user20management.plain.6"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="department"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_department</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_user20management.plain.7"/>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <icon-rv id="system:system.103"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_edit</string>
+                        </property>
+                        <property name="header">
+                            <i18n-rv key="system:demo_user20management.plain.30"/>
+                        </property>
+                        <property name="cellAlignment">
+                            <object>
+                                <property name="horizontal">
+                                    <enum value="center"/>
+                                </property>
+                            </object>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="selectionConfiguration">
+                <object>
+                    <property name="autoSelectPolicy">
+                        <enum value="none"/>
+                    </property>
+                </object>
+            </property>
+            <property name="handleLargeData">
+                <boolean value="false"/>
+            </property>
+            <property name="rowsBackgroundColorConfiguration">
+                <object>
+                    <property name="enableAlternateRowBackgroundColor">
+                        <boolean value="true"/>
+                    </property>
+                </object>
+            </property>
+            <property name="actionGroups">
+                <list-value>
+                    <object>
+                        <property name="actions">
+                            <list-value>
+                                <object>
+                                    <property name="icon">
+                                        <icon-ref value="system:administration.128"/>
+                                    </property>
+                                    <property name="label">
+                                        <i18n-rv key="system:demo_user20management.plain.8"/>
+                                    </property>
+                                    <property name="reaction">
+                                        <popup id="system:demo_user20management.addUserDialog" type="modal"/>
+                                    </property>
+                                </object>
+                            </list-value>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="selectionActions">
+                <list-value>
+                    <object>
+                        <property name="icon">
+                            <icon-ref value="system:administration.129"/>
+                        </property>
+                        <property name="label">
+                            <i18n-rv key="system:demo_user20management.plain.9"/>
+                        </property>
+                        <property name="reaction">
+                            <popup id="system:demo_user20management.confirmDeleteUserDialog" type="modal"/>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="searchingConfiguration">
+                <object>
+                    <property name="enabled">
+                        <boolean value="true"/>
+                    </property>
+                </object>
+            </property>
+            <property name="title">
+                <i18n-rv key="system:demo_user20management.plain.38"/>
+            </property>
+        </config>
+    </view>
+    <view id="textLabel" display-name="Text Label" ts="1467682873871" public="false" component="wcf.label">
+        <uuid>56846061-fad8-44a4-922d-bb6c1690e05a</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="text" data-type="wcf:String" usage="optional">
+                <null-rv/>
+            </entry>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="label">
+                <i18n-rv key="system:demo_user20management.plain.11">
+                    <context-rv input-key="text"/>
+                </i18n-rv>
+            </property>
+        </config>
+    </view>
+    <view id="addUserDialog" display-name="Add User Dialog" ts="1467195639070" public="false" component="wcf.form">
+        <uuid>d14005da-b754-4901-89bc-2ffbb26f2dd5</uuid>
+        <purpose name="dialog"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser" usage="optional">
+                <create-data-object-rv>
+                    <create-data-object type="demo_user20management:UIDemoUser" storage="none"/>
+                </create-data-object-rv>
+            </entry>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="view">
+                <view-ref value="system:demo_user20management.addUserView"/>
+            </property>
+            <property name="actions">
+                <list-value>
+                    <object>
+                        <property name="text">
+                            <i18n-rv key="system:demo_user20management.plain.20">
+                                <context-rv input-key="uiDemoUser" path="userName"/>
+                            </i18n-rv>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context"/>
+                        </property>
+                        <property name="validate">
+                            <function-rv id="system:demo_user20management.saveNewUser">
+                                <context-rv input-key="uiDemoUser"/>
+                            </function-rv>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="500"/>
+                    <height preferred="400"/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <composite-view id="confirmDeleteUserView" display-name="Confirm Delete User View" ts="1467623805363" public="false" component="wcf.grid2">
+        <uuid>1e02852f-3fda-4706-831d-7fee8a4649c7</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selDemoUser" data-type="demo_user20management:UIDemoUser"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management.plain.28">
+                        <context-rv input-key="selDemoUser" path="userName"/>
+                    </i18n-rv>
+                </entry>
+            </context>
+            <config>
+                <property name="align">
+                    <enum value="center"/>
+                </property>
+                <property name="valign">
+                    <enum value="middle"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="vweight">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <config-override type="component.wcf.label:Root">
+                <property name="label">
+                    <i18n-rv key="system:demo_user20management.plain.10">
+                        <context-rv input-key="text"/>
+                    </i18n-rv>
+                </property>
+            </config-override>
+        </window>
+    </composite-view>
+    <view id="confirmDeleteUserDialog" display-name="Confirm Delete User Dialog" ts="1467624766921" public="false" component="wcf.form">
+        <uuid>81f83c3c-5035-4800-88bb-715b102321b4</uuid>
+        <purpose name="dialog"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selDemoUser" data-type="demo_user20management:UIDemoUser"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="view">
+                <view-ref value="system:demo_user20management.confirmDeleteUserView"/>
+            </property>
+            <property name="actions">
+                <list-value>
+                    <object>
+                        <property name="text">
+                            <i18n-rv key="system:demo_user20management.plain.29"/>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context"/>
+                        </property>
+                        <property name="validate">
+                            <function-rv id="system:demo_user20management.deleteUser">
+                                <context-rv input-key="selDemoUser"/>
+                            </function-rv>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="300"/>
+                    <height preferred="100"/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <view id="editUserDialog" display-name="Edit User Dialog" ts="1467629315093" public="false" component="wcf.form">
+        <uuid>3f48d14d-a0b9-46cc-8fc0-f52deec4e679</uuid>
+        <purpose name="dialog"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="view">
+                <view-ref value="system:demo_user20management.editUserView"/>
+            </property>
+            <property name="actions">
+                <list-value>
+                    <object>
+                        <property name="text">
+                            <i18n-rv key="system:demo_user20management.plain.30"/>
+                        </property>
+                        <property name="reaction">
+                            <previous update="context"/>
+                        </property>
+                        <property name="validate">
+                            <function-rv id="system:demo_user20management.updateUser">
+                                <context-rv input-key="uiDemoUser"/>
+                            </function-rv>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="500"/>
+                    <height preferred="400"/>
+                </component-sizing>
+            </property>
+        </config>
+    </view>
+    <composite-view id="editUserView" display-name="Edit User View" ts="1467774155794" public="false" component="wcf.row-layout">
+        <uuid>c9acf6c4-449c-4c99-b9ee-c2a33ab7e31a</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="500"/>
+                    <height preferred="400"/>
+                </component-sizing>
+            </property>
+        </config>
+        <window id="13" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">ID Number</string>
+                </entry>
+            </context>
+            <config/>
+        </window>
+        <window id="14" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="ID Number" ts="1467629287194" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">idNumber</string>
+                    </property>
+                    <property name="disabled">
+                        <boolean value="true"/>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="2" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">User Name</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="User Name" ts="1467193121038" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="updatePolicy">
+                        <enum value="immediate"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">userName</string>
+                    </property>
+                    <property name="title">
+                        <i18n-rv key="system:demo_user20management.plain.12"/>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="3" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Sex</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+        </window>
+        <window id="8" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+            <view id="nested" display-name="sex" ts="1467774155710" public="false" component="wcf.bean-input.drop-down">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="items">
+                        <list-rv remove-nulls="false" remove-dups="false">
+                            <i18n-rv key="system:demo_user20management.plain.17"/>
+                            <i18n-rv key="system:demo_user20management.plain.18"/>
+                        </list-rv>
+                    </property>
+                    <property name="itemLabel">
+                        <function-rv id="system:demo_user20management.getSexualNameFromMap">
+                            <context-rv input-key="currentItem"/>
+                        </function-rv>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">sex</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="4" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Age</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="3"/>
+                </property>
+            </config>
+        </window>
+        <window id="9" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="3"/>
+                </property>
+            </config>
+            <view id="nested" display-name="age" ts="1467188278383" public="false" component="wcf.bean-input.number">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="precision">
+                        <integer value="0"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">age</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="5" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Cell Phone</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="4"/>
+                </property>
+            </config>
+        </window>
+        <window id="10" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="4"/>
+                </property>
+            </config>
+            <view id="nested" display-name="phone" ts="1467190058352" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">phoneNumber</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="6" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Email Address</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="5"/>
+                </property>
+            </config>
+        </window>
+        <window id="11" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="5"/>
+                </property>
+            </config>
+            <view id="nested" display-name="email" ts="1467190072948" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">email</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="7" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Department</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="6"/>
+                </property>
+            </config>
+        </window>
+        <window id="12" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="6"/>
+                </property>
+            </config>
+            <view id="nested" display-name="department" ts="1467190084113" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">department</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+    </composite-view>
+    <composite-view id="addUserView" display-name="Add User View" ts="1467629377090" public="false" component="wcf.row-layout">
+        <uuid>59706d63-9d3e-4e74-83cf-b5f3a6cd37f4</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="500"/>
+                    <height preferred="400"/>
+                </component-sizing>
+            </property>
+        </config>
+        <window id="13" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">ID Number</string>
+                </entry>
+            </context>
+            <config/>
+        </window>
+        <window id="14" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="ID Number" ts="1467195507733" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">idNumber</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="2" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">User Name</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+        <window id="1" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <view id="nested" display-name="User Name" ts="1467193121038" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="updatePolicy">
+                        <enum value="immediate"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">userName</string>
+                    </property>
+                    <property name="title">
+                        <i18n-rv key="system:demo_user20management.plain.12"/>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="3" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Sex</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+        </window>
+        <window id="8" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="2"/>
+                </property>
+            </config>
+            <view id="nested" display-name="sex" ts="1467190038396" public="false" component="wcf.bean-input.drop-down">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="items">
+                        <list-rv remove-nulls="false" remove-dups="false">
+                            <i18n-rv key="system:demo_user20management.plain.17"/>
+                            <i18n-rv key="system:demo_user20management.plain.18"/>
+                        </list-rv>
+                    </property>
+                    <property name="itemLabel">
+                        <function-rv id="system:demo_user20management.getSexualName">
+                            <context-rv input-key="currentItem"/>
+                        </function-rv>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">sex</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="4" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Age</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="3"/>
+                </property>
+            </config>
+        </window>
+        <window id="9" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="3"/>
+                </property>
+            </config>
+            <view id="nested" display-name="age" ts="1467188278383" public="false" component="wcf.bean-input.number">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="precision">
+                        <integer value="0"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">age</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="5" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Cell Phone</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="4"/>
+                </property>
+            </config>
+        </window>
+        <window id="10" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="4"/>
+                </property>
+            </config>
+            <view id="nested" display-name="phone" ts="1467190058352" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">phoneNumber</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="6" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Email Address</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="5"/>
+                </property>
+            </config>
+        </window>
+        <window id="11" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="5"/>
+                </property>
+            </config>
+            <view id="nested" display-name="email" ts="1467190072948" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">email</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+        <window id="7" view="system:demo_user20management.textLabel">
+            <size width="80"/>
+            <context>
+                <entry key="text">
+                    <string xml:space="preserve">Department</string>
+                </entry>
+            </context>
+            <config>
+                <property name="row">
+                    <integer value="6"/>
+                </property>
+            </config>
+        </window>
+        <window id="12" view="nested">
+            <size/>
+            <config>
+                <property name="column">
+                    <integer value="1"/>
+                </property>
+                <property name="row">
+                    <integer value="6"/>
+                </property>
+            </config>
+            <view id="nested" display-name="department" ts="1467190084113" public="false" component="wcf.bean-input.text">
+                <inputs>
+                    <entry key="uiDemoUser" data-type="demo_user20management:UIDemoUser"/>
+                </inputs>
+                <flow/>
+                <config>
+                    <property name="fieldWidth">
+                        <integer value="60"/>
+                    </property>
+                    <property name="pathToValue">
+                        <string xml:space="preserve">department</string>
+                    </property>
+                </config>
+            </view>
+        </window>
+    </composite-view>
+    <composite-view id="departmentView" display-name="Department View" ts="1467686464314" public="false" component="wcf.grid2">
+        <uuid>fd42d72b-9a7c-4f01-80c4-4ade9f8c76eb</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_user20management.plain.39"/>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="800"/>
+                    <height preferred="600"/>
+                </component-sizing>
+            </property>
+        </config>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management.plain.33"/>
+                </entry>
+            </context>
+            <config>
+                <property name="align">
+                    <enum value="center"/>
+                </property>
+                <property name="valign">
+                    <enum value="middle"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="vweight">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <config-override type="component.wcf.label:Root">
+                <property name="label">
+                    <i18n-rv key="system:demo_user20management.plain.10">
+                        <context-rv input-key="text"/>
+                    </i18n-rv>
+                </property>
+            </config-override>
+        </window>
+    </composite-view>
+    <view id="valueLabel" display-name="Value Label" ts="1467690328410" public="false" component="wcf.label">
+        <uuid>b0a839c8-1f64-4a04-a279-73bd098d726b</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="value" data-type="wcf:Object" usage="optional">
+                <null-rv/>
+            </entry>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="label">
+                <context-rv input-key="value"/>
+            </property>
+        </config>
+    </view>
+    <composite-view id="companyView" display-name="Company View" ts="1467855836074" public="false" component="wcf.grid2">
+        <uuid>cd08c9c0-2fa8-45ed-ad18-d8965ab6da2e</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="title">
+                <i18n-rv key="system:demo_user20management.plain.42"/>
+            </property>
+            <property name="sizing">
+                <component-sizing>
+                    <width preferred="800"/>
+                    <height preferred="600"/>
+                </component-sizing>
+            </property>
+        </config>
+        <window id="0" view="system:demo_user20management.textLabel">
+            <size/>
+            <context>
+                <entry key="text">
+                    <i18n-rv key="system:demo_user20management.plain.43"/>
+                </entry>
+            </context>
+            <config>
+                <property name="align">
+                    <enum value="center"/>
+                </property>
+                <property name="valign">
+                    <enum value="middle"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="vweight">
+                    <integer value="1"/>
+                </property>
+            </config>
+            <config-override type="component.wcf.label:Root">
+                <property name="label">
+                    <i18n-rv key="system:demo_user20management.plain.10">
+                        <context-rv input-key="text"/>
+                    </i18n-rv>
+                </property>
+            </config-override>
+        </window>
+    </composite-view>
+    <script-map-function type="groovy" id="getSexualName" display-name="getSexualName" ts="1467774539211" public="false" output-type="wcf:String" cache-results="true" map-input-type="wcf:Integer">
+        <uuid>95d4fb54-fb09-4b96-9a91-994ee001f247</uuid>
+        <script-inputs>
+            <input name="item" type-name="wcf:Integer"/>
+        </script-inputs>
+        <map-entry>
+            <key>
+                <integer value="0"/>
+            </key>
+            <value>
+                <i18n-rv key="system:demo_user20management.plain.14"/>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key>
+                <integer value="1"/>
+            </key>
+            <value>
+                <i18n-rv key="system:demo_user20management.plain.15"/>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key>
+                <integer value="-1"/>
+            </key>
+            <value>
+                <i18n-rv key="system:demo_user20management.plain.40"/>
+            </value>
+        </map-entry>
+    </script-map-function>
+    <script-function type="groovy" id="saveNewUser" display-name="saveNewUser" ts="1467614657856" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>761134e3-d862-4fba-a541-bba17c710eb7</uuid>
+        <inputs>
+            <input name="uiDemoUser" type-name="demo_user20management:UIDemoUser"/>
+        </inputs>
+    </script-function>
+    <script-function type="groovy" id="2" display-name="getTests" ts="1467257320538" public="false" output-type="demo_user20management:UIDemoUser" output-list="true" cache-results="true">
+        <uuid>bf184a94-50f4-49b3-99cd-ff94e8dad976</uuid>
+    </script-function>
+    <script-function type="groovy" id="getAllDemoUsers" display-name="getAllDemoUsers" ts="1467613718076" public="false" output-type="foglight-5:DemoUser" output-list="true" cache-results="true">
+        <uuid>d0366347-ea97-44e1-837d-a38ce4e9449c</uuid>
+    </script-function>
+    <script-function type="groovy" id="getUIDemoUserList" display-name="getUIDemoUserList" ts="1467613811558" public="false" output-type="demo_user20management:UIDemoUser" output-list="true">
+        <uuid>da44001a-9cbd-4f1a-98ca-bda65481e16d</uuid>
+    </script-function>
+    <script-function type="groovy" id="getDemoUserById" display-name="getDemoUserByIdNum" ts="1467612312615" public="false" output-type="foglight-5:DemoUser" cache-results="true">
+        <uuid>d89b8220-5e59-4e4d-9cab-79db6f4455ba</uuid>
+        <inputs>
+            <input name="idNumber" type-name="wcf:String"/>
+        </inputs>
+    </script-function>
+    <script-function type="groovy" id="deleteUser" display-name="deleteUser" ts="1467626484046" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>94a50b18-c4d9-4219-b15d-f812447d9131</uuid>
+        <inputs>
+            <input name="selDemoUser" type-name="demo_user20management:UIDemoUser"/>
+        </inputs>
+    </script-function>
+    <script-function type="groovy" id="updateUser" display-name="updateUser" ts="1467629122773" public="false" output-type="wcf:StatusMessage" output-list="true" cache-results="true">
+        <uuid>a47b0959-ab0b-4f19-8d0e-1c6eb8e7a4cb</uuid>
+        <inputs>
+            <input name="uiDemoUser" type-name="demo_user20management:UIDemoUser"/>
+        </inputs>
+    </script-function>
+    <map-function id="getSexualNameFromMap" display-name="getSexualName" ts="1467774292505" public="false" output-type="wcf:String" cache-results="true" input-type="wcf:String">
+        <uuid>92fc80dd-35f1-45ba-a5a0-d2346e35d27a</uuid>
+        <map-entry>
+            <key>
+                <string xml:space="preserve">-1</string>
+            </key>
+            <value>
+                <string xml:space="preserve">Unkown</string>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key>
+                <string xml:space="preserve">0</string>
+            </key>
+            <value>
+                <string xml:space="preserve">Male</string>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key>
+                <string xml:space="preserve">1</string>
+            </key>
+            <value>
+                <string xml:space="preserve">Female</string>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key/>
+            <value>
+                <string xml:space="preserve">Unkown</string>
+            </value>
+        </map-entry>
+    </map-function>
+</module>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Switch by Value Layout" last-entity-id="0" parent="system:demo_user20management">
+    <view id="tablesDropDownList" display-name="Tables Drop-down List" ts="1467858987374" public="false" component="wcf.drop-down">
+        <uuid>296e9904-c44d-4975-af8a-4fee76a008a1</uuid>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedView" data-type="wcf:String" usage="optional" implicit="true"/>
+        </inputs>
+        <generated-context output-key="selectedItem" custom-key="selectedView"/>
+        <flow>
+            <on action="selection">
+                <update/>
+            </on>
+        </flow>
+        <config>
+            <property name="items">
+                <list-rv remove-nulls="false" remove-dups="false">
+                    <i18n-rv key="system:demo_user20management_switch20layout.plain.1"/>
+                    <i18n-rv key="system:demo_user20management_switch20layout.plain.2"/>
+                    <i18n-rv key="system:demo_user20management_switch20layout.plain.11"/>
+                </list-rv>
+            </property>
+            <property name="itemLabel">
+                <function-rv id="system:demo_user20management_switch20layout.getManagerTableName">
+                    <context-rv input-key="currentItem"/>
+                </function-rv>
+            </property>
+            <property name="title">
+                <i18n-rv key="system:demo_user20management_switch20layout.plain.4"/>
+            </property>
+        </config>
+    </view>
+    <view id="managetViewSwitchByValue" display-name="Manager View Switch by Value" ts="1467858910404" public="false" component="wcf.switch-value">
+        <uuid>13a8d324-3165-49f6-af45-1677b6cf8c4a</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedView" data-type="wcf:String"/>
+        </inputs>
+        <flow/>
+        <config>
+            <property name="value">
+                <context-rv input-key="selectedView"/>
+            </property>
+            <property name="views">
+                <list-value>
+                    <object>
+                        <property name="view">
+                            <view-ref value="system:demo_user20management.userListTable"/>
+                        </property>
+                        <property name="value">
+                            <string xml:space="preserve">userManager</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="view">
+                            <view-ref value="system:demo_user20management.departmentView"/>
+                        </property>
+                        <property name="value">
+                            <string xml:space="preserve">departmentManager</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="view">
+                            <view-ref value="system:demo_user20management.companyView"/>
+                        </property>
+                        <property name="value">
+                            <string xml:space="preserve">companyManager</string>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+        </config>
+    </view>
+    <composite-view id="managetSelectionView" display-name="Manager Selection View" ts="1467785708685" public="false" component="wcf.grid2">
+        <uuid>255a3f42-1f69-4ef9-8c19-572f3dcbcd94</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedView" data-type="wcf:String" usage="internal"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_user20management_switch20layout.tablesDropDownList">
+            <size/>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management_switch20layout.managetViewSwitchByValue">
+            <size/>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="valign">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="vweight">
+                    <integer value="1"/>
+                </property>
+                <property name="showTitle">
+                    <boolean value="true"/>
+                </property>
+                <property name="showBorder">
+                    <boolean value="true"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <script-map-function type="groovy" id="getManagerTableName" display-name="getManagerTableName" ts="1467859008034" public="false" output-type="wcf:String" cache-results="true" map-input-type="wcf:String">
+        <uuid>b351ac77-2fc2-4405-a3e1-6e0bef91a114</uuid>
+        <script-inputs>
+            <input name="managerTable" type-name="wcf:String"/>
+        </script-inputs>
+        <map-entry>
+            <key>
+                <string xml:space="preserve">userManager</string>
+            </key>
+            <value>
+                <string xml:space="preserve">User List Table</string>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key>
+                <string xml:space="preserve">departmentManager</string>
+            </key>
+            <value>
+                <string xml:space="preserve">Department View</string>
+            </value>
+        </map-entry>
+        <map-entry>
+            <key>
+                <string xml:space="preserve">companyManager</string>
+            </key>
+            <value>
+                <string xml:space="preserve">Company Manager</string>
+            </value>
+        </map-entry>
+    </script-map-function>
+</module>

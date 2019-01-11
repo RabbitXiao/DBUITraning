@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3-027" display-name="Switch To Layout" last-entity-id="0" parent="system:demo_user20management">
+    <query select="metadata2:CustomizableAssociation" id="getCustomizableAssocationsByGroupTag" display-name="getCustomizableAssocationsByGroupTag" ts="1467775456782" public="false">
+        <uuid>525ea280-af6f-4709-9566-5ada7cc21814</uuid>
+        <parameters>
+            <parameter name="groupTag" type-name="wcf:String"/>
+        </parameters>
+        <where>
+            <comparison operator="equals">
+                <data-path path="groupTag"/>
+                <parameter-reference parameter="groupTag"/>
+            </comparison>
+        </where>
+        <root>
+            <datasource-root-reference datasource-type="metadata2" path="moduleItems/module/associations"/>
+        </root>
+    </query>
+    <view id="managerViewSelector" display-name="Manager View Selector" ts="1467859974548" public="false" component="wcf.table.row-table">
+        <uuid>2f7b4549-66d7-4252-9927-6d82b3718ae6</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedAssociation" data-type="metadata2:CustomizableAssociation" usage="optional" implicit="true"/>
+        </inputs>
+        <flow>
+            <on action="rowSelection">
+                <generated-context output-key="selectedRow" custom-key="selectedAssociation"/>
+                <update/>
+            </on>
+        </flow>
+        <config>
+            <property name="rows">
+                <query-selection-rv query="system:demo_user20management_switch20to20layout.getCustomizableAssocationsByGroupTag">
+                    <string xml:space="preserve">managerTag</string>
+                </query-selection-rv>
+            </property>
+            <property name="stackModeConfiguration">
+                <object>
+                    <property name="stackModePolicy">
+                        <enum value="enabled"/>
+                    </property>
+                    <property name="topColumns">
+                        <list-value>
+                            <string xml:space="preserve">c_displayName</string>
+                        </list-value>
+                    </property>
+                    <property name="additionalColumns">
+                        <list-value>
+                            <string xml:space="preserve">c_description</string>
+                        </list-value>
+                    </property>
+                </object>
+            </property>
+            <property name="columns">
+                <list-value>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="displayName"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_displayName</string>
+                        </property>
+                    </object>
+                    <object>
+                        <property name="value">
+                            <context-rv input-key="currentRow" path="description"/>
+                        </property>
+                        <property name="id">
+                            <string xml:space="preserve">c_description</string>
+                        </property>
+                    </object>
+                </list-value>
+            </property>
+            <property name="dropDownModeConfiguration">
+                <object>
+                    <property name="dropDownModeEnabled">
+                        <enum value="inputMode"/>
+                    </property>
+                    <property name="selectedItemLabel">
+                        <context-rv input-key="currentSelectedRow" path="displayName"/>
+                    </property>
+                </object>
+            </property>
+            <property name="useImplicitHeaders">
+                <boolean value="false"/>
+            </property>
+            <property name="handleLargeData">
+                <boolean value="false"/>
+            </property>
+            <property name="largeDataVisibleRowLimit">
+                <integer value="5"/>
+            </property>
+            <property name="searchingConfiguration">
+                <object>
+                    <property name="enabled">
+                        <boolean value="true"/>
+                    </property>
+                </object>
+            </property>
+        </config>
+    </view>
+    <view id="managerSwitchTo" display-name="Manager Switch To" ts="1467784887923" public="false" component="wcf.switch-to">
+        <uuid>3aec42d2-fd31-4b5a-84f6-d8ae2101b6de</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedAssociation" data-type="metadata2:CustomizableAssociation"/>
+        </inputs>
+        <config>
+            <property name="view">
+                <function-rv id="system:demo_user20management_switch20to20layout.getSpecificView">
+                    <context-rv input-key="selectedAssociation"/>
+                </function-rv>
+            </property>
+        </config>
+    </view>
+    <composite-view id="managerSelectionView" display-name="Manager Selection View" ts="1467785019501" public="false" component="wcf.grid2">
+        <uuid>52353189-4c06-499c-a6d7-6b9bf730358c</uuid>
+        <purpose name="page"/>
+        <purpose name="pagelet"/>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+            <entry key="selectedAssociation" data-type="metadata2:CustomizableAssociation" usage="internal"/>
+        </inputs>
+        <flow/>
+        <config/>
+        <window id="0" view="system:demo_user20management_switch20to20layout.managerViewSelector">
+            <size/>
+            <config/>
+        </window>
+        <window id="1" view="system:demo_user20management_switch20to20layout.managerSwitchTo">
+            <size/>
+            <config>
+                <property name="row">
+                    <integer value="1"/>
+                </property>
+                <property name="align">
+                    <enum value="stretch"/>
+                </property>
+                <property name="valign">
+                    <enum value="stretch"/>
+                </property>
+                <property name="hweight">
+                    <integer value="1"/>
+                </property>
+                <property name="vweight">
+                    <integer value="1"/>
+                </property>
+            </config>
+        </window>
+    </composite-view>
+    <association usage="customizable" id="departmentViewAssociation" display-name="Department View Association" ts="1467775220346" public="false">
+        <uuid>f7667516-b8e4-4020-a9d5-72e3a10e1125</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="groupTag">
+                <string xml:space="preserve">managerTag</string>
+            </property>
+            <property name="values">
+                <list>
+                    <view-ref value="system:demo_user20management.departmentView"/>
+                </list>
+            </property>
+            <property name="displayName">
+                <i18n-rv key="system:demo_user20management_switch20to20layout.plain.0"/>
+            </property>
+            <property name="name">
+                <string xml:space="preserve">departmentView</string>
+            </property>
+            <property name="description">
+                <i18n-rv key="system:demo_user20management_switch20to20layout.plain.1"/>
+            </property>
+        </config>
+    </association>
+    <association usage="customizable" id="userListAssocation" display-name="User List Assocation" ts="1467775227832" public="false">
+        <uuid>5a884ad6-a8cd-4ee4-bfde-f7b7c1332a0e</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="groupTag">
+                <string xml:space="preserve">managerTag</string>
+            </property>
+            <property name="values">
+                <list>
+                    <view-ref value="system:demo_user20management.userListTable"/>
+                </list>
+            </property>
+            <property name="displayName">
+                <i18n-rv key="system:demo_user20management_switch20to20layout.plain.3"/>
+            </property>
+            <property name="name">
+                <string xml:space="preserve">userManager</string>
+            </property>
+            <property name="description">
+                <i18n-rv key="system:demo_user20management_switch20to20layout.plain.4"/>
+            </property>
+        </config>
+    </association>
+    <association usage="customizable" id="companyViewAssoiation" display-name="Company View Assoiation" ts="1467860088776" public="false">
+        <uuid>8fcdc7e4-59ab-4850-ada0-802d647a9514</uuid>
+        <inputs>
+            <entry key="timeRange" data-type="wcf:TimeRange"/>
+        </inputs>
+        <config>
+            <property name="groupTag">
+                <string xml:space="preserve">managerTag</string>
+            </property>
+            <property name="displayName">
+                <i18n-rv key="system:demo_user20management_switch20to20layout.plain.9"/>
+            </property>
+            <property name="name">
+                <string xml:space="preserve">companyManager</string>
+            </property>
+            <property name="description">
+                <i18n-rv key="system:demo_user20management_switch20to20layout.plain.10"/>
+            </property>
+        </config>
+    </association>
+    <script-function type="groovy" id="getSpecificView" display-name="getSpecificView" ts="1467785343823" public="false" output-type="wcf:ViewReference" cache-results="true">
+        <uuid>c8f1bb50-225e-4089-b56b-2b3adf7d95aa</uuid>
+        <inputs>
+            <input name="association" type-name="metadata2:CustomizableAssociation"/>
+        </inputs>
+    </script-function>
+</module>

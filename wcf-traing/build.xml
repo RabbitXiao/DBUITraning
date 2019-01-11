@@ -39,6 +39,48 @@
                         <include name="wcf/system/demo_bean_input_training/**"/>
                     </fileset>
                 </wcf>
+				
+				<wcf name="UserManagementModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_user20management/**"/>
+                    </fileset>
+                </wcf>
+				
+				<wcf name="InteratorModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_user20management_interator20layout/**"/>
+                    </fileset>
+                </wcf>
+				
+				<wcf name="SwitchByTypeModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_user20management_switch20by20type20layout/**"/>
+                    </fileset>
+                </wcf>
+				
+				<wcf name="SwitchByValueModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_user20management_switch20layout/**"/>
+                    </fileset>
+                </wcf>
+				
+				<wcf name="SwitchToModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_user20management_switch20to20layout/**"/>
+                    </fileset>
+                </wcf>
+				
+				<wcf name="TabModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_user20management_tab20layout/**"/>
+                    </fileset>
+                </wcf>
+				
+				<wcf name="TypeModule" prefixwcf="false">
+                    <fileset dir="training">
+                        <include name="wcf/system/demo_user20management_type20layout/**"/>
+                    </fileset>
+                </wcf>
             </cartridge>
         </car>
  

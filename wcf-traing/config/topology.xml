@@ -7,4 +7,14 @@
 		  <property name="speed" type="Metric" unit-name="count"/>
 	</type>
 	
+	<type name = "DemoUser" extends="TopologyObject">
+		  <property name="IDNumber" type="String" is-identity="true"/>
+		  <property name="userName" type="String" />
+		  <property name="sex" type="Integer"/>
+		  <property name="age" type="Integer"/>
+		  <property name="phoneNumber" type="String"/>
+		  <property name="email" type="String"/>
+		  <property name="department" type="String"/>
+	</type>
+	
 </types>
